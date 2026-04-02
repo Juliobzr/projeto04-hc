@@ -1,3 +1,5 @@
+'use client'
+
 import { Field, Input } from "@chakra-ui/react";
 import InputTextProps from "@/types/InputTextType";
 
