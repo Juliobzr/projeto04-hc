@@ -11,18 +11,18 @@ export function LoadingButton({
   type = 'button',
   colorPalette = 'blue',
   size = 'md',
-  width = 'full',
   onClick,
   disabled,
 }: LoadingButtonProps) {
   return (
     <Button
+      borderRadius="0.75rem"
+      px={10}
       type={type}
       colorPalette={colorPalette}
       size={size}
       loading={loading}
       loadingText={loadingText}
-      w={width}
       onClick={onClick}
       disabled={disabled || loading}
     >

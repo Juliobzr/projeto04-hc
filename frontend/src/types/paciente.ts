@@ -1,4 +1,4 @@
-export interface Endereco {
+type Endereco = {
   cep: string
   logradouro: string
   numero: string
@@ -8,7 +8,7 @@ export interface Endereco {
   uf: string
 }
 
-export interface Paciente {
+type Paciente = {
   id: string
   nomeCompleto: string
   nomeSocial?: string
@@ -24,4 +24,4 @@ export interface Paciente {
   criadoEm: string
 }
 
-export type CadastrarPacienteDTO = Omit<Paciente, 'id' | 'criadoEm'>
+export type { Endereco, Paciente }
