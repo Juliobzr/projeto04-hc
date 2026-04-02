@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { InputProps } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
-type InputTextProps = {
-  placeholder: string;
+type InputTextProps = InputProps & {
   icon?: ReactNode;
   label?: string;
 };

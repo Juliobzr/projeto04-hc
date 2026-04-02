@@ -1,7 +1,7 @@
 import { Field, Input } from "@chakra-ui/react";
 import InputTextProps from "@/types/InputTextType";
 
-export default function InputText({ placeholder, icon, label }: InputTextProps) {
+export default function InputText({ placeholder, icon, label, ...rest }: InputTextProps) {
   return (
     <Field.Root>
       {label && (
@@ -21,9 +21,9 @@ export default function InputText({ placeholder, icon, label }: InputTextProps) 
           pl={icon ? "2.5rem" : "1rem"}
           placeholder={placeholder}
           size="md"
-          bg="gray.50"
-          borderColor="gray.200"
-          width="full"
+          bg="#eff1f999"
+          border="none"
+          {...rest}
         />
       </div>
     </Field.Root>
