@@ -1,8 +1,11 @@
 import { Usuario } from "@/types/usuario";
 
 const STORAGE_KEY = "usuarios_mock";
+const USER_LOGADO_KEY = "usuario_logado";
 
 export function getUsuarios(): Usuario[] {
+  if (typeof window === "undefined") return [];
+
   const data = localStorage.getItem(STORAGE_KEY);
   return data ? JSON.parse(data) : [];
 }
@@ -30,5 +33,19 @@ export function login(email: string, senha: string) {
 
   if (!user) throw new Error("Credenciais inválidas");
 
+
+  localStorage.setItem(USER_LOGADO_KEY, JSON.stringify(user));
+
   return user;
+}
+
+export function logout() {
+  localStorage.removeItem(USER_LOGADO_KEY);
+}
+
+export function getUsuarioLogado(): Usuario | null {
+  if (typeof window === "undefined") return null;
+
+  const data = localStorage.getItem(USER_LOGADO_KEY);
+  return data ? JSON.parse(data) : null;
 }
