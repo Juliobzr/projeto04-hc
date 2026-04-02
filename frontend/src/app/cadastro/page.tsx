@@ -5,21 +5,30 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Box, VStack, Text } from "@chakra-ui/react";
-import { login } from "@/app/mock/auth";
+import { cadastrar } from "@/app/mock/auth";
 import Card from "@/components/ui/Card";
 import { LoadingButton } from "@/components/ui/LoadingButton";
 import InputText from "@/components/ui/InputText";
 
 export default function Login() {
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const router = useRouter();
 
-  function handleLogin() {
+  function handleCadastro() {
     try {
-      login(email, senha);
-      router.push("/dashboard");
+      if (!email || !senha) {
+        setErro("Preencha todos os campos");
+        return;
+      }
+
+      cadastrar({ email, senha, nome });
+
+      alert("Usuário cadastrado com sucesso!");
+      router.push("/login");
+
     } catch (e: any) {
       setErro(e.message);
     }
@@ -43,10 +52,16 @@ export default function Login() {
             <Image src={logo} alt="Logo" width={40} height={40} />
             <Box gap="0.5rem" display="flex" flexDirection="column" alignItems="center">
               <Text fontSize="xl">Acesso Restrito</Text>
-              <Text fontSize="sm" color="#8B8D97">Faça login na sua conta</Text>
+              <Text fontSize="sm" color="#8B8D97">Crie sua conta</Text>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="1.875rem" my={16}>
+            <InputText
+              width= "23rem"
+              placeholder="Nome Completo"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
             <InputText
               width= "23rem"
               placeholder="Email"
@@ -62,8 +77,8 @@ export default function Login() {
             />
             {erro && <Text color="red.500">{erro}</Text>}
           </Box>
-          <LoadingButton onClick={handleLogin} colorPalette="blue">
-            Entrar
+          <LoadingButton onClick={handleCadastro} colorPalette="blue">
+            Cadastrar
           </LoadingButton>
         </VStack>
       </Card>
