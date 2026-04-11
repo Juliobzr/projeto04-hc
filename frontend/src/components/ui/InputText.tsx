@@ -1,3 +1,5 @@
+'use client'
+
 import { Field, Input } from "@chakra-ui/react";
 import InputTextProps from "@/types/InputTextType";
 
@@ -18,13 +20,13 @@ export default function InputText({ placeholder, icon, label, ...rest }: InputTe
         )}
 
         <Input
-          pl={icon ? "2.5rem" : "1rem"}
-          placeholder={placeholder}
-          size="md"
-          bg="#eff1f999"
-          border="none"
-          {...rest}
+            bg="white"
+             border="1px solid"
+             borderColor="gray.300"
+            _focus={{ borderColor: "gray.800", boxShadow: "0 0 0 1px #2D3748" }} // <-- Isso tira o anel azul e coloca um cinza escuro
+             {...rest}
         />
+
       </div>
     </Field.Root>
   );

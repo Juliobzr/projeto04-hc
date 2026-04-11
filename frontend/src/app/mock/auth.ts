@@ -1,8 +1,11 @@
 import { Usuario } from "@/types/usuario";
 
 const STORAGE_KEY = "usuarios_mock";
+const USER_LOGADO_KEY = "usuario_logado";
 
 export function getUsuarios(): Usuario[] {
+  if (typeof window === "undefined") return [];
+
   const data = localStorage.getItem(STORAGE_KEY);
   return data ? JSON.parse(data) : [];
 }
@@ -30,5 +33,13 @@ export function login(email: string, senha: string) {
 
   if (!user) throw new Error("Credenciais inválidas");
 
+  // Salva a "sessão" do usuário atual no navegador usando a constante
+  localStorage.setItem(USER_LOGADO_KEY, JSON.stringify(user));
+
   return user;
+}
+export function logout() {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("usuario_logado");
+  }
 }
