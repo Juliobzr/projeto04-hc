@@ -17,3 +17,16 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+input[type="checkbox"] {
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  -moz-appearance: checkbox !important;
+  width: 16px !important;
+  height: 16px !important;
+  cursor: pointer !important;
+  border: 1px solid #d1d5db !important;
+  background-color: white !important;
+  accent-color: #2563eb !important;
+  color-scheme: light !important;
+}

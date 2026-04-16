@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Box, Flex, Text, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, Flex, Text, HStack } from "@chakra-ui/react";
 import { FiPlus, FiSearch } from "react-icons/fi";
 import ActionCard from "@/components/ui/Card";
 import InputText from "@/components/ui/InputText";
@@ -10,13 +10,22 @@ import InputText from "@/components/ui/InputText";
 export default function Dashboard() {
   const router = useRouter();
   const [buscaCpf, setBuscaCpf] = useState("");
+  const [erro, setErro] = useState("");
+
+  function handleBuscar() {
+    if (!buscaCpf.trim()) {
+      setErro("Digite um CPF para buscar.");
+      return;
+    }
+    router.push(`/pacientes?cpf=${buscaCpf}`);
+  }
 
   return (
     <Box p={{ base: 4, md: 8 }} maxW="1000px">
       <Text fontSize="md" fontWeight="bold" color="gray.800" mb={6}>
         Ações Rápidas
       </Text>
-      
+
       <Flex gap={6} direction={{ base: "column", xl: "row" }} align="flex-start">
         <Flex
           as="button"
@@ -43,10 +52,22 @@ export default function Dashboard() {
                   <Text fontSize="sm" color="gray.500">Buscar imediato por CPF</Text>
                 </Box>
               </HStack>
-              <InputText 
+              <InputText
                 placeholder="Digite o CPF" value={buscaCpf}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBuscaCpf(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setBuscaCpf(e.target.value);
+                  setErro("");
+                }}
               />
+              {erro && <Text fontSize="sm" color="red.500">{erro}</Text>}
+              <Flex
+                as="button" bg="blue.500" color="white" borderRadius="lg"
+                py={2} px={4} fontWeight="600" fontSize="sm" cursor="pointer"
+                _hover={{ bg: "blue.600" }} justify="center" align="center"
+                onClick={handleBuscar}
+              >
+                Buscar
+              </Flex>
             </Flex>
           </ActionCard>
         </Box>
