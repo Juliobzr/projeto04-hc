@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 
-export default SidebarLinkProps;
-
-type SidebarLinkProps = {
+export type SidebarLinkProps = {
   icon?: ReactNode;
   label: string;
   href: string;

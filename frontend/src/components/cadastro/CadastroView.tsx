@@ -6,16 +6,18 @@ import { Box, VStack, Text } from "@chakra-ui/react";
 import Card from "@/components/ui/layout/Card";
 import { LoadingButton } from "@/components/ui/layout/LoadingButton";
 import InputText from "@/components/ui/layout/InputText";
-import { LoginViewProps } from "@/types/Login";
+import { CadastroViewProps } from "@/types/Cadastro";
 
-export default function LoginView({
-  email,
-  senha,
-  erro,
-  setEmail,
-  setSenha,
-  onSubmit,
-}: LoginViewProps) {
+export default function CadastroView({
+    email,
+    senha,
+    nome,
+    erro,
+    setEmail,
+    setSenha,
+    setNome,
+    onSubmit
+}: CadastroViewProps){
   return (
     <Box
       display="flex"
@@ -34,36 +36,36 @@ export default function LoginView({
             <Image src={logo} alt="Logo" width={40} height={40} />
             <Box gap="0.5rem" display="flex" flexDirection="column" alignItems="center">
               <Text fontSize="xl">Acesso Restrito</Text>
-              <Text fontSize="sm" color="#8B8D97">
-                Faça login na sua conta
-              </Text>
+              <Text fontSize="sm" color="#8B8D97">Crie sua conta</Text>
             </Box>
           </Box>
-
           <Box display="flex" flexDirection="column" gap="1.875rem" my={16}>
             <InputText
-              width="23rem"
+              width= "23rem"
+              placeholder="Nome Completo"
+              value={nome}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNome(e.target.value)}
+            />
+            <InputText
+              width= "23rem"
               placeholder="Email"
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
-
             <InputText
-              width="23rem"
+              width= "23rem"
               placeholder="Senha"
               type="password"
               value={senha}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)}
             />
-
             {erro && <Text color="red.500">{erro}</Text>}
           </Box>
-
           <LoadingButton onClick={onSubmit} colorPalette="blue">
-            Entrar
+            Cadastrar
           </LoadingButton>
         </VStack>
       </Card>
     </Box>
-  );
+  )
 }
