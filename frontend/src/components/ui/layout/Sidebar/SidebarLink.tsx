@@ -2,7 +2,7 @@
 
 import { Flex, Box, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import SidebarLinkProps from "@/types/SidebarLinkType";
+import { SidebarLinkProps } from "@/types/SidebarLinkType";
 
 
 export default function SidebarLink({

@@ -1,4 +1,4 @@
-type LoadingButtonProps = {
+export type LoadingButtonProps = {
   children: React.ReactNode
   loading?: boolean
   loadingText?: string
@@ -9,5 +9,3 @@ type LoadingButtonProps = {
   onClick?: () => void
   disabled?: boolean
 }
-
-export default LoadingButtonProps
