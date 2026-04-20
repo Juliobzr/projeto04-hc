@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Box, Flex, Text, HStack } from "@chakra-ui/react";
 import { FiPlus, FiSearch } from "react-icons/fi";
-import ActionCard from "@/components/ui/Card";
-import InputText from "@/components/ui/InputText";
+import ActionCard from "@/components/ui/layout/Card";
+import InputText from "@/components/ui/layout/InputText";
 
 export default function Dashboard() {
   const router = useRouter();

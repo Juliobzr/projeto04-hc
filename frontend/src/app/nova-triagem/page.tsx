@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Box, Flex, Text, VStack, HStack, SimpleGrid, Button } from "@chakra-ui/react";
 import { FiArrowLeft } from "react-icons/fi";
-import InputText from "@/components/ui/InputText";
+import InputText from "@/components/ui/layout/InputText";
 
 export default function NovaTriagem() {
   const router = useRouter();
