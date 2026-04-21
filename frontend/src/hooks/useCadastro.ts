@@ -34,6 +34,6 @@ export function useCadastro() {
     setEmail,
     setSenha,
     setNome,
-    handleCadastro
+    onSubmit: handleCadastro
   }
 }
