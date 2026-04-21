@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@chakra-ui/react'
-import LoadingButtonProps from '@/types/LoadingButtonType'
+import { LoadingButtonProps } from '@/types/LoadingButtonType'
 
 
 export function LoadingButton({

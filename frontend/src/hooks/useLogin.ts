@@ -26,6 +26,6 @@ export function useLogin() {
     erro,
     setEmail,
     setSenha,
-    handleLogin,
+    onSubmit: handleLogin,
   };
 }

@@ -1,0 +1,28 @@
+export type NovaTriagemViewProps = {
+  possuiDeficiencia: string;
+  tipoDeficiencia: string;
+  nomeCompleto: string;
+  nomeSocial: string;
+  dataNascimento: string;
+  cpf: string;
+  telefone: string;
+  nomeResponsavel: string;
+  prontuario: string;
+  cartaoSUS: string;
+  especialidade: string;
+  unidade: string;
+  setPossuiDeficiencia: (v: string) => void;
+  setTipoDeficiencia: (v: string) => void;
+  setNomeCompleto: (v: string) => void;
+  setNomeSocial: (v: string) => void;
+  onDataNascimentoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setCpf: (v: string) => void;
+  setTelefone: (v: string) => void;
+  setNomeResponsavel: (v: string) => void;
+  setProntuario: (v: string) => void;
+  setCartaoSUS: (v: string) => void;
+  setEspecialidade: (v: string) => void;
+  setUnidade: (v: string) => void;
+  onSalvar: () => void;
+  onVoltar: () => void;
+};

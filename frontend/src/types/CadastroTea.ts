@@ -1,0 +1,22 @@
+export type CadastroTeaViewProps = {
+  nivelSuporte: string;
+  autonomia: string;
+  comunicacao: string;
+  comunicacaoAlternativa: string;
+  interacaoSocial: string[];
+  fatoresDesregulacao: string[];
+  dificuldadesSensoriais: string[];
+  fatoresClinicos: string[];
+  hiperfoco: string;
+  setNivelSuporte: (v: string) => void;
+  setAutonomia: (v: string) => void;
+  setComunicacao: (v: string) => void;
+  setComunicacaoAlternativa: (v: string) => void;
+  setHiperfoco: (v: string) => void;
+  toggleInteracaoSocial: (item: string) => void;
+  toggleFatoresDesregulacao: (item: string) => void;
+  toggleDificuldadesSensoriais: (item: string) => void;
+  toggleFatoresClinicos: (item: string) => void;
+  onFinalizar: () => void;
+  onVoltar: () => void;
+};
