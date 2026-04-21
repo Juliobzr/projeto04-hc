@@ -9,7 +9,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
 
   // Se estivermos na tela de Login ou na raiz, não mostra o painel
-  if (pathname === "/login" || pathname === "/") {
+  if (pathname === "/login" || pathname === "/" || pathname === "/cadastro") {
     return <>{children}</>;
   }
 
