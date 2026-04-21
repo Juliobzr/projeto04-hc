@@ -2,11 +2,12 @@
 
 import logo from "@/assets/logo.png";
 import Image from "next/image";
-import { Box, VStack, Text } from "@chakra-ui/react";
+import { Box, VStack, Text, Link } from "@chakra-ui/react";
 import Card from "@/components/ui/layout/Card";
 import { LoadingButton } from "@/components/ui/layout/LoadingButton";
 import InputText from "@/components/ui/layout/InputText";
 import { LoginViewProps } from "@/types/Login";
+import NextLink from "next/link";
 
 export default function LoginView({
   email,
@@ -62,6 +63,11 @@ export default function LoginView({
           <LoadingButton onClick={onSubmit} colorPalette="blue">
             Entrar
           </LoadingButton>
+          <NextLink href="/cadastro" passHref>
+            <Link color="red" mt={6}>
+              Criar conta (apenas para apresentação)
+            </Link>
+          </NextLink>
         </VStack>
       </Card>
     </Box>
