@@ -1,4 +1,4 @@
-export type ConfirmacaoSimplesViewProps = {
+export type NavigationActionsViewProps = {
   onVoltar: () => void;
   onInicio: () => void;
 };

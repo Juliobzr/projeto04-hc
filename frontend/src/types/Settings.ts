@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 
-export type ConfiguracoesViewProps = {
+export type SettingsViewProps = {
   fileInputRef: RefObject<HTMLInputElement | null>;
   primeiroNome: string;
   ultimoNome: string;

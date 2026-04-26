@@ -7,7 +7,7 @@ function toggleInList(list: string[], item: string) {
   return list.includes(item) ? list.filter((i) => i !== item) : [...list, item];
 }
 
-export function useCadastroTea() {
+export function useNewTriageTea() {
   const router = useRouter();
 
   const [nivelSuporte, setNivelSuporte] = useState("");

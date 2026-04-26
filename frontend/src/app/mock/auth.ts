@@ -1,20 +1,20 @@
-import { Usuario } from "@/types/usuario";
+import { User } from "@/types/User";
 
 const STORAGE_KEY = "usuarios_mock";
 const USER_LOGADO_KEY = "usuario_logado";
 
-export function getUsuarios(): Usuario[] {
+export function getUsuarios(): User[] {
   if (typeof window === "undefined") return [];
 
   const data = localStorage.getItem(STORAGE_KEY);
   return data ? JSON.parse(data) : [];
 }
 
-export function saveUsuarios(usuarios: Usuario[]) {
+export function saveUsuarios(usuarios: User[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(usuarios));
 }
 
-export function cadastrar(usuario: Usuario) {
+export function cadastrar(usuario: User) {
   const usuarios = getUsuarios();
 
   const existe = usuarios.find((u) => u.email === usuario.email);

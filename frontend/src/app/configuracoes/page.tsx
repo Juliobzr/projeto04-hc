@@ -1,9 +1,9 @@
 "use client";
 
-import ConfiguracoesView from "@/components/configuracoes/ConfiguracoesView";
-import { useConfiguracoes } from "@/hooks/useConfiguracoes";
+import SettingsView from "@/components/configuracoes/SettingsView";
+import { useSettings } from "@/hooks/useSettings";
 
-export default function ConfiguracoesPage() {
-  const props = useConfiguracoes();
-  return <ConfiguracoesView {...props} />;
+export default function SettingsPage() {
+  const props = useSettings();
+  return <SettingsView {...props} />;
 }

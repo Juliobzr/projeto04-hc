@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { PacienteListaItem } from "@/types/PacientesLista";
+import type { PacienteListaItem } from "@/types/PatientList";
 
 const ITEMS_POR_PAGINA_OPCOES = [15, 25, 50];
 
-export function usePacientesLista() {
+export function usePatientList() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pacientes, setPacientes] = useState<PacienteListaItem[]>([]);

@@ -7,7 +7,7 @@ function toggleInList(list: string[], item: string) {
   return list.includes(item) ? list.filter((i) => i !== item) : [...list, item];
 }
 
-export function usePerfilPaciente() {
+export function usePatientProfile() {
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;

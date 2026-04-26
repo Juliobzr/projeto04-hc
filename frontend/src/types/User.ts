@@ -1,7 +1,7 @@
-type Usuario = {
+type User = {
     nome: string;
     email: string;
     senha: string;
 };
 
-export type { Usuario }
+export type { User }

@@ -1,9 +1,9 @@
 "use client";
 
-import CadastroView from "@/components/cadastro/CadastroView";
-import { useCadastro } from "@/hooks/useCadastro";
+import SignUpView from "@/components/cadastro/SignUpView";
+import { useSignUp } from "@/hooks/useSignUp";
 
-export default function CadastroPage() {
-  const props = useCadastro();
-  return <CadastroView {...props}/>;
+export default function SignUpPage() {
+  const props = useSignUp();
+  return <SignUpView {...props}/>;
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import NovaTriagemView from "@/components/novaTriagem/NovaTriagemView";
-import { useNovaTriagem } from "@/hooks/useNovaTriagem";
+import NewTriageView from "@/components/novaTriagem/NewTriageView";
+import { useNewTriage } from "@/hooks/useNewTriage";
 
-export default function NovaTriagemPage() {
-  const props = useNovaTriagem();
-  return <NovaTriagemView {...props} />;
+export default function NewTriagePage() {
+  const props = useNewTriage();
+  return <NewTriageView {...props} />;
 }

@@ -4,15 +4,15 @@ import { Box, Flex, Text, HStack } from "@chakra-ui/react";
 import { FiPlus, FiSearch } from "react-icons/fi";
 import ActionCard from "@/components/ui/layout/Card";
 import InputText from "@/components/ui/layout/InputText";
-import { DashboardViewProps } from "@/types/Dashboard";
+import { MainScreenViewProps } from "@/types/MainScreen";
 
-export default function DashboardView({
+export default function MainScreenView({
   buscaCpf,
   erro,
   onBuscaChange,
   onBuscar,
   onNovaTriagem,
-}: DashboardViewProps) {
+}: MainScreenViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }} maxW="1000px">
       <Text fontSize="md" fontWeight="bold" color="gray.800" mb={6}>

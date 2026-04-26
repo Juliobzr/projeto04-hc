@@ -6,10 +6,10 @@ import { Box, VStack, Text, Link } from "@chakra-ui/react";
 import Card from "@/components/ui/layout/Card";
 import { LoadingButton } from "@/components/ui/layout/LoadingButton";
 import InputText from "@/components/ui/layout/InputText";
-import { CadastroViewProps } from "@/types/Cadastro";
+import { SignUpViewProps } from "@/types/SignUp";
 import NextLink from "next/link";
 
-export default function CadastroView({
+export default function SignUpView({
     email,
     senha,
     nome,
@@ -18,7 +18,7 @@ export default function CadastroView({
     setSenha,
     setNome,
     onSubmit
-}: CadastroViewProps){
+}: SignUpViewProps){
   return (
     <Box
       display="flex"

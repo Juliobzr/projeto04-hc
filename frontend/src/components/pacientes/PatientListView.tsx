@@ -2,9 +2,9 @@
 
 import { Box, Flex, Text, Input, Button, HStack } from "@chakra-ui/react";
 import { FiSearch, FiFilter, FiChevronDown, FiChevronLeft, FiChevronRight, FiTrash2 } from "react-icons/fi";
-import { PacientesListaViewProps } from "@/types/PacientesLista";
+import { PatientListViewProps } from "@/types/PatientList";
 
-export default function PacientesListaView({
+export default function PatientListView({
   pacientesPagina,
   busca,
   selecionados,
@@ -25,7 +25,7 @@ export default function PacientesListaView({
   onItensPorPaginaChange,
   onPaginaAnterior,
   onPaginaProxima,
-}: PacientesListaViewProps) {
+}: PatientListViewProps) {
   const checkboxStyle: React.CSSProperties = {
     cursor: "pointer",
     width: "16px",

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-export function useConfirmacaoSimples() {
+export function useNavigationActions() {
   const router = useRouter();
 
   return {

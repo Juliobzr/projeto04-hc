@@ -1,9 +1,9 @@
 "use client";
 
-import CadastroTeaView from "@/components/novaTriagem/CadastroTeaView";
-import { useCadastroTea } from "@/hooks/useCadastroTea";
+import NewTriageTeaView from "@/components/novaTriagem/NewTriageTeaView";
+import { useNewTriageTea } from "@/hooks/useNewTriageTea";
 
-export default function CadastroTeaPage() {
-  const props = useCadastroTea();
-  return <CadastroTeaView {...props} />;
+export default function NewTriageTeaPage() {
+  const props = useNewTriageTea();
+  return <NewTriageTeaView {...props} />;
 }

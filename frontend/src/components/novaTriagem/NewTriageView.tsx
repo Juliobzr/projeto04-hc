@@ -3,9 +3,9 @@
 import { Box, Flex, Text, VStack, HStack, SimpleGrid, Button } from "@chakra-ui/react";
 import { FiArrowLeft } from "react-icons/fi";
 import InputText from "@/components/ui/layout/InputText";
-import { NovaTriagemViewProps } from "@/types/NovaTriagem";
+import { NewTriageViewProps } from "@/types/NewTriage";
 
-export default function NovaTriagemView({
+export default function NewTriageView({
   possuiDeficiencia,
   tipoDeficiencia,
   nomeCompleto,
@@ -32,7 +32,7 @@ export default function NovaTriagemView({
   setUnidade,
   onSalvar,
   onVoltar,
-}: NovaTriagemViewProps) {
+}: NewTriageViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }} maxW="1000px">
       <HStack w="fit-content" color="gray.600" mb={6} cursor="pointer"

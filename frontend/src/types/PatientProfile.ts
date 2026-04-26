@@ -1,4 +1,4 @@
-export type PerfilPacienteViewProps = {
+export type PatientProfileViewProps = {
   onVoltar: () => void;
   onSalvar: () => void;
   onImprimirPulseira: () => void;

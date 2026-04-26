@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export function useNovaTriagem() {
+export function useNewTriage() {
   const router = useRouter();
 
   const [possuiDeficiencia, setPossuiDeficiencia] = useState("nao");

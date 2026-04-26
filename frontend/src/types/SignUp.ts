@@ -1,4 +1,4 @@
-export type CadastroViewProps = {
+export type SignUpViewProps = {
   email: string;
   senha: string;
   nome: string;

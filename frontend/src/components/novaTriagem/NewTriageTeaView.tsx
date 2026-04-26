@@ -2,7 +2,7 @@
 
 import { Box, Flex, Text, VStack, HStack } from "@chakra-ui/react";
 import { FiArrowLeft } from "react-icons/fi";
-import { CadastroTeaViewProps } from "@/types/CadastroTea";
+import { NewTriageTeaViewProps } from "@/types/NewTriageTea";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -57,7 +57,7 @@ function Section({ number, title, children }: { number: number; title: string; c
   );
 }
 
-export default function CadastroTeaView({
+export default function NewTriageTeaView({
   nivelSuporte,
   autonomia,
   comunicacao,
@@ -78,7 +78,7 @@ export default function CadastroTeaView({
   toggleFatoresClinicos,
   onFinalizar,
   onVoltar,
-}: CadastroTeaViewProps) {
+}: NewTriageTeaViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }} maxW="700px">
       <HStack w="fit-content" color="gray.600" mb={6} cursor="pointer"

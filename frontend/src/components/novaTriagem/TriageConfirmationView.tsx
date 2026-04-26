@@ -2,16 +2,16 @@
 
 import { Box, Flex, Text, HStack } from "@chakra-ui/react";
 import { FiArrowLeft, FiPrinter } from "react-icons/fi";
-import { ConfirmacaoTriagemViewProps } from "@/types/ConfirmacaoTriagem";
+import { TriageConfirmationViewProps } from "@/types/TriageConfirmation";
 
-export default function ConfirmacaoTriagemView({
+export default function riageConfirmationView({
   paciente,
   onVoltar,
   onInicio,
   onImprimirPulseira,
   onImprimirFolha,
   calcularIdade,
-}: ConfirmacaoTriagemViewProps) {
+}: TriageConfirmationViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }}>
       <HStack w="fit-content" color="gray.600" mb={6} cursor="pointer"

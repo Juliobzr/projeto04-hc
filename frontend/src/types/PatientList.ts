@@ -1,4 +1,4 @@
-export type PacienteListaItem = {
+export type PatientListItem = {
   id: string;
   nome: string;
   dataNascimento: string;
@@ -7,8 +7,8 @@ export type PacienteListaItem = {
   telefone: string;
 };
 
-export type PacientesListaViewProps = {
-  pacientesPagina: PacienteListaItem[];
+export type PatientListViewProps = {
+  pacientesPagina: PatientListItem[];
   busca: string;
   selecionados: string[];
   itensPorPagina: number;

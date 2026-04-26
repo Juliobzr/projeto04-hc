@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { PacienteConfirmacao } from "@/types/ConfirmacaoTriagem";
+import type { PacienteConfirmacao } from "@/types/TriageConfirmation";
 
-export function useConfirmacaoTriagem() {
+export function useTriageConfirmation() {
   const router = useRouter();
   const [paciente, setPaciente] = useState<PacienteConfirmacao | null>(null);
   const [nomeUsuario, setNomeUsuario] = useState("");

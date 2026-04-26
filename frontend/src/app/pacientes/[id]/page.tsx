@@ -1,9 +1,9 @@
 "use client";
 
-import PerfilPacienteView from "@/components/perfilPaciente/PerfilPacienteView";
-import { usePerfilPaciente } from "@/hooks/usePerfilPaciente";
+import PatientProfileView from "@/components/perfilPaciente/PatientProfileView";
+import { usePatientProfile } from "@/hooks/usePatientProfile";
 
-export default function PerfilPacientePage() {
-  const props = usePerfilPaciente();
-  return <PerfilPacienteView {...props} />;
+export default function PatientProfilePage() {
+  const props = usePatientProfile();
+  return <PatientProfileView {...props} />;
 }

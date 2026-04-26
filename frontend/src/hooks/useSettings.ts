@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-export function useConfiguracoes() {
+export function useSettings() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
