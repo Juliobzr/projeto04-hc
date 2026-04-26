@@ -2,7 +2,7 @@
 
 import { Box, Flex, Text, HStack, VStack } from "@chakra-ui/react";
 import { FiArrowLeft, FiPrinter } from "react-icons/fi";
-import { PerfilPacienteViewProps } from "@/types/PerfilPaciente";
+import { PatientProfileViewProps } from "@/types/PatientProfile";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -66,7 +66,7 @@ function Campo({ label, value, onChange }: { label: string; value: string; onCha
   );
 }
 
-export default function PerfilPacienteView(props: PerfilPacienteViewProps) {
+export default function PatientProfileView(props: PatientProfileViewProps) {
   const {
     onVoltar,
     onSalvar,

@@ -15,7 +15,7 @@ export default function Header() {
     if (pathname === "/nova-triagem") return "Cadastro de Novo Paciente";
     if (pathname === "/pacientes") return "Pacientes";
     if (pathname === "/configuracoes") return "Configurações";
-    return "Dashboard";
+    return "Inicio";
   };
 
   useEffect(() => {

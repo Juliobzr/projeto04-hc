@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function useDashboard() {
+export function useMainScreen() {
   const router = useRouter();
   const [buscaCpf, setBuscaCpf] = useState("");
   const [erro, setErro] = useState("");

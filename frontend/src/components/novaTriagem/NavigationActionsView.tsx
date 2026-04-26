@@ -2,9 +2,9 @@
 
 import { Box, Flex, Text, HStack } from "@chakra-ui/react";
 import { FiArrowLeft, FiGrid } from "react-icons/fi";
-import { ConfirmacaoSimplesViewProps } from "@/types/ConfirmacaoSimples";
+import { NavigationActionsViewProps } from "@/types/NavigationActions";
 
-export default function ConfirmacaoSimplesView({ onVoltar, onInicio }: ConfirmacaoSimplesViewProps) {
+export default function NavigationActionsView({ onVoltar, onInicio }: NavigationActionsViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }}>
       <HStack w="fit-content" color="gray.600" mb={6} cursor="pointer"

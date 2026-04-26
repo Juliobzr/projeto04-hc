@@ -14,7 +14,7 @@ export function useLogin() {
   function handleLogin() {
     try {
       login(email, senha);
-      router.push("/dashboard");
+      router.push("/inicio");
     } catch (e: any) {
       setErro(e.message);
     }

@@ -1,18 +1,18 @@
 "use client";
 
 import { Suspense } from "react";
-import PacientesListaView from "@/components/pacientes/PacientesListaView";
-import { usePacientesLista } from "@/hooks/usePacientesLista";
+import PatientListView from "@/components/pacientes/PatientListView";
+import { usePatientList } from "@/hooks/usePatientList";
 
-function PacientesListaPageContent() {
-  const props = usePacientesLista();
-  return <PacientesListaView {...props} />;
+function PatientListViewContent() {
+  const props = usePatientList();
+  return <PatientListView {...props} />;
 }
 
-export default function PacientesPage() {
+export default function PatientsPage() {
   return (
     <Suspense fallback={null}>
-      <PacientesListaPageContent />
+      <PatientListViewContent />
     </Suspense>
   );
 }

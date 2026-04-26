@@ -1,4 +1,4 @@
-export type CadastroTeaViewProps = {
+export type NewTriageTeaViewProps = {
   nivelSuporte: string;
   autonomia: string;
   comunicacao: string;

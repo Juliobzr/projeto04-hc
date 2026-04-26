@@ -1,9 +1,9 @@
 "use client";
 
-import ConfirmacaoTriagemView from "@/components/novaTriagem/ConfirmacaoTriagemView";
-import { useConfirmacaoTriagem } from "@/hooks/useConfirmacaoTriagem";
+import TriageConfimationView from "@/components/novaTriagem/TriageConfirmationView";
+import { useTriageConfirmation } from "@/hooks/useTriageConfirmartion";
 
-export default function ConfirmacaoTriagemPage() {
-  const props = useConfirmacaoTriagem();
-  return <ConfirmacaoTriagemView {...props} />;
+export default function TriageConfirmationPage() {
+  const props = useTriageConfirmation();
+  return <TriageConfimationView {...props} />;
 }

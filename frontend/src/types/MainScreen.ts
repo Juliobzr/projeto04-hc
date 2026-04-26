@@ -1,4 +1,4 @@
-export type DashboardViewProps = {
+export type MainScreenViewProps = {
   buscaCpf: string;
   erro: string;
   onBuscaChange: (value: string) => void;

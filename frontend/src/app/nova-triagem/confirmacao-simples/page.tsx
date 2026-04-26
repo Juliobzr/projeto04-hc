@@ -1,9 +1,9 @@
 "use client";
 
-import ConfirmacaoSimplesView from "@/components/novaTriagem/ConfirmacaoSimplesView";
-import { useConfirmacaoSimples } from "@/hooks/useConfirmacaoSimples";
+import NavigationActionsView from "@/components/novaTriagem/NavigationActionsView";
+import { useNavigationActions } from "@/hooks/useNavigationActions";
 
-export default function ConfirmacaoSimplesPage() {
-  const props = useConfirmacaoSimples();
-  return <ConfirmacaoSimplesView {...props} />;
+export default function ConfirmationPage() {
+  const props = useNavigationActions();
+  return <NavigationActionsView {...props} />;
 }

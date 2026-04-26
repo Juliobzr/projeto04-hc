@@ -1,4 +1,4 @@
-export type NovaTriagemViewProps = {
+export type NewTriageViewProps = {
   possuiDeficiencia: string;
   tipoDeficiencia: string;
   nomeCompleto: string;

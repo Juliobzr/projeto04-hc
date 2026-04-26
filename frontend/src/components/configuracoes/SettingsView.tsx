@@ -2,7 +2,7 @@
 
 import { Box, Flex, Text, HStack, VStack } from "@chakra-ui/react";
 import { FiUser, FiMail, FiMapPin, FiUpload, FiTrash2, FiArrowLeft } from "react-icons/fi";
-import { ConfiguracoesViewProps } from "@/types/Configuracoes";
+import { SettingsViewProps } from "@/types/Settings";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -44,7 +44,7 @@ const selectStyle: React.CSSProperties = {
 
 const ESTADOS_BR = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
 
-export default function ConfiguracoesView({
+export default function SettingsView({
   fileInputRef,
   primeiroNome,
   ultimoNome,
@@ -69,7 +69,7 @@ export default function ConfiguracoesView({
   onAtualizar,
   onVoltar,
   onFotoSelecionada,
-}: ConfiguracoesViewProps) {
+}: SettingsViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }}>
 

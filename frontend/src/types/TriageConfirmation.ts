@@ -1,4 +1,4 @@
-export type PacienteConfirmacaoTea = {
+export type PatientTeaConfirmation = {
   nivelSuporte?: string;
   comunicacao?: string;
   comunicacaoAlternativa?: string;
@@ -7,17 +7,17 @@ export type PacienteConfirmacaoTea = {
   hiperfoco?: string;
 };
 
-export type PacienteConfirmacao = {
+export type PatientConfirmation = {
   nome: string;
   dataNascimento: string;
   deficiencia?: string;
   prontuario?: string;
   nomeResponsavel?: string;
-  tea?: PacienteConfirmacaoTea;
+  tea?: PatientTeaConfirmation;
 };
 
-export type ConfirmacaoTriagemViewProps = {
-  paciente: PacienteConfirmacao | null;
+export type TriageConfirmationViewProps = {
+  paciente: PatientConfirmation | null;
   onVoltar: () => void;
   onInicio: () => void;
   onImprimirPulseira: () => void;
