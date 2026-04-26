@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { PacienteConfirmacao } from "@/types/TriageConfirmation";
+import type { PatientConfirmation } from "@/types/TriageConfirmation";
 
 export function useTriageConfirmation() {
   const router = useRouter();
-  const [paciente, setPaciente] = useState<PacienteConfirmacao | null>(null);
+  const [paciente, setPaciente] = useState<PatientConfirmation | null>(null);
   const [nomeUsuario, setNomeUsuario] = useState("");
 
   useEffect(() => {
     const usuarioString = localStorage.getItem("usuario_logado");
     if (usuarioString) setNomeUsuario(JSON.parse(usuarioString).nome);
 
-    const pacientes = JSON.parse(localStorage.getItem("pacientes_mock") || "[]") as PacienteConfirmacao[];
+    const pacientes = JSON.parse(localStorage.getItem("pacientes_mock") || "[]") as PatientConfirmation[];
     if (pacientes.length > 0) setPaciente(pacientes[pacientes.length - 1]);
   }, []);
 
