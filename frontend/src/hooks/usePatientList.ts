@@ -2,14 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { PacienteListaItem } from "@/types/PatientList";
+import type { PatientListItem } from "@/types/PatientList";
 
 const ITEMS_POR_PAGINA_OPCOES = [15, 25, 50];
 
 export function usePatientList() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [pacientes, setPacientes] = useState<PacienteListaItem[]>([]);
+  const [pacientes, setPacientes] = useState<PatientListItem[]>([]);
   const [busca, setBusca] = useState("");
   const [selecionados, setSelecionados] = useState<string[]>([]);
   const [itensPorPagina, setItensPorPagina] = useState(15);
@@ -18,7 +18,7 @@ export function usePatientList() {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dados = JSON.parse(localStorage.getItem("pacientes_mock") || "[]") as PacienteListaItem[];
+    const dados = JSON.parse(localStorage.getItem("pacientes_mock") || "[]") as PatientListItem[];
     setPacientes(dados);
     const cpfParam = searchParams.get("cpf");
     if (cpfParam) setBusca(cpfParam);
