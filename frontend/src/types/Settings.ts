@@ -12,6 +12,7 @@ export type SettingsViewProps = {
   estado: string;
   foto: string | null;
   salvo: boolean;
+  selected: string;
   setPrimeiroNome: (v: string) => void;
   setUltimoNome: (v: string) => void;
   setEmail: (v: string) => void;
@@ -24,5 +25,6 @@ export type SettingsViewProps = {
   onAbrirSeletorFoto: () => void;
   onAtualizar: () => void;
   onVoltar: () => void;
+  setSelected: (v: string) => void;
   onFotoSelecionada: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
