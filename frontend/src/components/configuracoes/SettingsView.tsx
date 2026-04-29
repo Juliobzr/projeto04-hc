@@ -1,46 +1,9 @@
 "use client";
 
-import { Box, Flex, Text, HStack, VStack } from "@chakra-ui/react";
+import { Box, Flex, Text, Select, HStack, VStack } from "@chakra-ui/react";
+import InputText from "../ui/layout/InputText";
 import { FiUser, FiMail, FiMapPin, FiUpload, FiTrash2, FiArrowLeft } from "react-icons/fi";
 import { SettingsViewProps } from "@/types/Settings";
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "10px 12px 10px 40px",
-  fontSize: "14px",
-  border: "1px solid #e5e7eb",
-  borderRadius: "10px",
-  outline: "none",
-  background: "#f9fafb",
-  color: "#374151",
-  boxSizing: "border-box",
-};
-
-const inputStyleSemIcone: React.CSSProperties = {
-  width: "100%",
-  padding: "10px 12px",
-  fontSize: "14px",
-  border: "1px solid #e5e7eb",
-  borderRadius: "10px",
-  outline: "none",
-  background: "#f9fafb",
-  color: "#374151",
-  boxSizing: "border-box",
-};
-
-const selectStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "10px 12px",
-  fontSize: "14px",
-  border: "1px solid #e5e7eb",
-  borderRadius: "10px",
-  outline: "none",
-  background: "#f9fafb",
-  color: "#374151",
-  boxSizing: "border-box",
-  cursor: "pointer",
-  appearance: "none",
-};
 
 const ESTADOS_BR = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
 
@@ -122,78 +85,85 @@ export default function SettingsView({
           <Box flex={1}>
             <VStack gap={4} align="stretch">
 
-              <Box>
-                <Text fontSize="sm" color="gray.600" mb={2}>Primeiro Nome</Text>
-                <Box position="relative">
-                  <Box position="absolute" left="12px" top="50%" transform="translateY(-50%)" color="gray.400" zIndex={1}>
-                    <FiUser size={16} />
-                  </Box>
-                  <input value={primeiroNome} onChange={(e) => setPrimeiroNome(e.target.value)} style={inputStyle} />
-                </Box>
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" color="gray.600" mb={2}>Último Nome</Text>
-                <Box position="relative">
-                  <Box position="absolute" left="12px" top="50%" transform="translateY(-50%)" color="gray.400" zIndex={1}>
-                    <FiUser size={16} />
-                  </Box>
-                  <input value={ultimoNome} onChange={(e) => setUltimoNome(e.target.value)} style={inputStyle} />
-                </Box>
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" color="gray.600" mb={2}>Email</Text>
-                <Box position="relative">
-                  <Box position="absolute" left="12px" top="50%" transform="translateY(-50%)" color="gray.400" zIndex={1}>
-                    <FiMail size={16} />
-                  </Box>
-                  <input value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
-                </Box>
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" color="gray.600" mb={2}>Número</Text>
-                <input value={numero} onChange={(e) => setNumero(e.target.value)}
-                  placeholder="(00) 00000-0000" style={inputStyleSemIcone} />
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" color="gray.600" mb={2}>Instituição</Text>
-                <Box position="relative">
-                  <Box position="absolute" left="12px" top="50%" transform="translateY(-50%)" color="gray.400" zIndex={1}>
-                    <FiMapPin size={16} />
-                  </Box>
-                  <input value={instituicao} onChange={(e) => setInstituicao(e.target.value)}
-                    placeholder="Nome da instituição" style={inputStyle} />
-                </Box>
-              </Box>
-
-              <Box>
-                <Text fontSize="sm" color="gray.600" mb={2}>Cidade</Text>
-                <input value={cidade} onChange={(e) => setCidade(e.target.value)}
-                  placeholder="Cidade" style={inputStyleSemIcone} />
-              </Box>
+              <InputText label="Primeiro Nome" value={primeiroNome} onChange={(e) => setPrimeiroNome(e.target.value)}/>
+              <InputText label="Último Nome" value={ultimoNome} onChange={(e) => setUltimoNome(e.target.value)} />
+              <InputText label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <InputText label="Número" value={numero} onChange={(e) => setNumero(e.target.value)}
+                  placeholder="(00) 00000-0000" />
+              <InputText label="Instituição" value={instituicao} onChange={(e) => setInstituicao(e.target.value)}
+                    placeholder="Nome da instituição" />
+              <InputText label="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}
+                  placeholder="Cidade" />
 
               <HStack gap={4}>
                 <Box flex={1}>
                   <Text fontSize="sm" color="gray.600" mb={2}>País</Text>
                   <Box position="relative">
-                    <select value={pais} onChange={(e) => setPais(e.target.value)} style={selectStyle}>
+                    <select
+                      value={pais}
+                      onChange={(e) => setPais(e.target.value)}
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        fontSize: "14px",
+                        border: "1px solid #e5e7eb",
+                        borderRadius: "10px",
+                        outline: "none",
+                        background: "#f9fafb",
+                        color: "#374151",
+                        boxSizing: "border-box",
+                        cursor: "pointer",
+                        appearance: "none",
+                      }}
+                    >
                       <option value="Brasil">Brasil</option>
                       <option value="Portugal">Portugal</option>
                       <option value="Estados Unidos">Estados Unidos</option>
                     </select>
-                    <Box position="absolute" right="12px" top="50%" transform="translateY(-50%)" color="gray.400" pointerEvents="none">▾</Box>
+                    <Box
+                      position="absolute"
+                      right="12px"
+                      top="50%"
+                      transform="translateY(-50%)"
+                      color="gray.400"
+                      pointerEvents="none"
+                    >
+                      ▾
+                    </Box>
                   </Box>
                 </Box>
                 <Box flex={1}>
                   <Text fontSize="sm" color="gray.600" mb={2}>Estado</Text>
                   <Box position="relative">
-                    <select value={estado} onChange={(e) => setEstado(e.target.value)} style={selectStyle}>
+                    <select
+                      value={estado}
+                      onChange={(e) => setEstado(e.target.value)}
+                      style={{
+                        width: "100%",
+                        padding: "10px 12px",
+                        fontSize: "14px",
+                        border: "1px solid #e5e7eb",
+                        borderRadius: "10px",
+                        outline: "none",
+                        background: "#f9fafb",
+                        color: "#374151",
+                        boxSizing: "border-box",
+                        cursor: "pointer",
+                        appearance: "none",
+                      }}
+                    >
                       {ESTADOS_BR.map((e) => <option key={e} value={e}>{e}</option>)}
                     </select>
-                    <Box position="absolute" right="12px" top="50%" transform="translateY(-50%)" color="gray.400" pointerEvents="none">▾</Box>
+                    <Box
+                      position="absolute"
+                      right="12px"
+                      top="50%"
+                      transform="translateY(-50%)"
+                      color="gray.400"
+                      pointerEvents="none"
+                    >
+                      ▾
+                    </Box>
                   </Box>
                 </Box>
               </HStack>
