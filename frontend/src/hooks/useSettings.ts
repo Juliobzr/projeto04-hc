@@ -17,6 +17,7 @@ export function useSettings() {
   const [estado, setEstado] = useState("PE");
   const [foto, setFoto] = useState<string | null>(null);
   const [salvo, setSalvo] = useState(false);
+  const [selected, setSelected] = useState("")
 
   useEffect(() => {
     const usuarioString = localStorage.getItem("usuario_logado");
@@ -84,6 +85,7 @@ export function useSettings() {
     estado,
     foto,
     salvo,
+    selected,
     setPrimeiroNome,
     setUltimoNome,
     setEmail,
@@ -96,6 +98,7 @@ export function useSettings() {
     onAbrirSeletorFoto,
     onAtualizar: handleAtualizar,
     onVoltar,
+    setSelected,
     onFotoSelecionada: handleFoto,
   };
 }

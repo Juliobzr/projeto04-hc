@@ -4,8 +4,8 @@ import { Box, Flex, Text, Select, HStack, VStack } from "@chakra-ui/react";
 import InputText from "../ui/layout/InputText";
 import { FiUser, FiMail, FiMapPin, FiUpload, FiTrash2, FiArrowLeft } from "react-icons/fi";
 import { SettingsViewProps } from "@/types/Settings";
-
-const ESTADOS_BR = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
+import { SelectField } from "../ui/layout/SelectField";
+import { PAISES, ESTADOS_BR } from "@/constants/options";
 
 export default function SettingsView({
   fileInputRef,
@@ -19,6 +19,7 @@ export default function SettingsView({
   estado,
   foto,
   salvo,
+  selected,
   setPrimeiroNome,
   setUltimoNome,
   setEmail,
@@ -32,6 +33,7 @@ export default function SettingsView({
   onAtualizar,
   onVoltar,
   onFotoSelecionada,
+  setSelected,
 }: SettingsViewProps) {
   return (
     <Box p={{ base: 4, md: 8 }}>
@@ -99,75 +101,26 @@ export default function SettingsView({
                 <Box flex={1}>
                   <Text fontSize="sm" color="gray.600" mb={2}>País</Text>
                   <Box position="relative">
-                    <select
+                    <SelectField
+                      options={PAISES}
                       value={pais}
-                      onChange={(e) => setPais(e.target.value)}
-                      style={{
-                        width: "100%",
-                        padding: "10px 12px",
-                        fontSize: "14px",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "10px",
-                        outline: "none",
-                        background: "#f9fafb",
-                        color: "#374151",
-                        boxSizing: "border-box",
-                        cursor: "pointer",
-                        appearance: "none",
-                      }}
-                    >
-                      <option value="Brasil">Brasil</option>
-                      <option value="Portugal">Portugal</option>
-                      <option value="Estados Unidos">Estados Unidos</option>
-                    </select>
-                    <Box
-                      position="absolute"
-                      right="12px"
-                      top="50%"
-                      transform="translateY(-50%)"
-                      color="gray.400"
-                      pointerEvents="none"
-                    >
-                      ▾
-                    </Box>
+                      onChange={setPais}
+                      placeholder="Selecione um país"
+                    />
                   </Box>
                 </Box>
                 <Box flex={1}>
                   <Text fontSize="sm" color="gray.600" mb={2}>Estado</Text>
                   <Box position="relative">
-                    <select
+                    <SelectField
+                      options={ESTADOS_BR}
                       value={estado}
-                      onChange={(e) => setEstado(e.target.value)}
-                      style={{
-                        width: "100%",
-                        padding: "10px 12px",
-                        fontSize: "14px",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "10px",
-                        outline: "none",
-                        background: "#f9fafb",
-                        color: "#374151",
-                        boxSizing: "border-box",
-                        cursor: "pointer",
-                        appearance: "none",
-                      }}
-                    >
-                      {ESTADOS_BR.map((e) => <option key={e} value={e}>{e}</option>)}
-                    </select>
-                    <Box
-                      position="absolute"
-                      right="12px"
-                      top="50%"
-                      transform="translateY(-50%)"
-                      color="gray.400"
-                      pointerEvents="none"
-                    >
-                      ▾
-                    </Box>
+                      onChange={setEstado}
+                      placeholder="Selecione uma estado"
+                    />
                   </Box>
                 </Box>
               </HStack>
-
             </VStack>
           </Box>
 

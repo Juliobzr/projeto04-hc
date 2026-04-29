@@ -1,6 +1,7 @@
 import {
   SelectContent,
   SelectItem,
+  SelectPositioner,
   SelectRoot,
   SelectTrigger,
   SelectValueText,
@@ -17,6 +18,7 @@ export function SelectField({ options, value, onChange, placeholder = "Selecione
       value={[value]}
       onValueChange={(e) => onChange(e.value[0])}
       w="full"
+      positioning={{ placement: "bottom", flip: true, sameWidth: true }}
     >
       <SelectTrigger
         px={3}
@@ -30,13 +32,15 @@ export function SelectField({ options, value, onChange, placeholder = "Selecione
       >
         <SelectValueText placeholder={placeholder} />
       </SelectTrigger>
-      <SelectContent>
-        {collection.items.map((opt) => (
-          <SelectItem key={opt.value} item={opt}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
+      <SelectPositioner>
+        <SelectContent borderColor="gray.200" boxShadow="sm" bg="white">
+          {collection.items.map((opt) => (
+            <SelectItem key={opt.value} item={opt} borderColor="gray.200" bg="white" _hover={{ bg: "gray.100" }}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </SelectPositioner>
     </SelectRoot>
   )
 }
