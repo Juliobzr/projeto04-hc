@@ -1,43 +1,47 @@
 import { User } from "@/types/User";
 
-const STORAGE_KEY = "usuarios_mock";
-const USER_LOGADO_KEY = "usuario_logado";
-
-export function getUsuarios(): User[] {
-  if (typeof window === "undefined") return [];
-
-  const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
+export async function getUsuarios(): Promise<User[]> {
+  const res = await fetch("http://localhost:3001/users");
+  return res.json();
 }
 
-export function saveUsuarios(usuarios: User[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(usuarios));
+export async function cadastrar(usuario: User) {
+  const res = await fetch("http://localhost:3001/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(usuario)
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.error);
+  }
+
+  return res.json();
 }
 
-export function cadastrar(usuario: User) {
-  const usuarios = getUsuarios();
+export async function login(email: string, senha: string) {
+  const res = await fetch("http://localhost:3001/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, senha })
+  });
 
-  const existe = usuarios.find((u) => u.email === usuario.email);
-  if (existe) throw new Error("Usuário já existe");
+  if (!res.ok) {
+    throw new Error("Credenciais inválidas");
+  }
 
-  usuarios.push(usuario);
-  saveUsuarios(usuarios);
-}
+  const user = await res.json();
 
-export function login(email: string, senha: string) {
-  const usuarios = getUsuarios();
-
-  const user = usuarios.find(
-    (u) => u.email === email && u.senha === senha
-  );
-
-  if (!user) throw new Error("Credenciais inválidas");
-
-  // Salva a "sessão" do usuário atual no navegador usando a constante
-  localStorage.setItem(USER_LOGADO_KEY, JSON.stringify(user));
+  localStorage.setItem("usuario_logado", JSON.stringify(user));
 
   return user;
 }
+
 export function logout() {
   if (typeof window !== "undefined") {
     localStorage.removeItem("usuario_logado");
