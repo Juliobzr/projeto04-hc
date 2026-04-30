@@ -11,9 +11,9 @@ export function useLogin() {
 
   const router = useRouter();
 
-  function handleLogin() {
+  async function handleLogin() {
     try {
-      login(email, senha);
+      await login(email, senha);
       router.push("/inicio");
     } catch (e: any) {
       setErro(e.message);

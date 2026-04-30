@@ -14,7 +14,7 @@ import SidebarLink from './SidebarLink'
 import { logout } from '@/app/mock/auth'
 
 const NAV_ITEMS = [
-  { label: 'Início', href: '/dashboard', icon: <FiGrid size={20} /> },
+  { label: 'Início', href: '/inicio', icon: <FiGrid size={20} /> },
   { label: 'Nova Triagem', href: '/nova-triagem', icon: <FiFileText size={20} /> },
   { label: 'Pacientes', href: '/pacientes', icon: <FiUsers size={20} /> },
   { label: 'Configurações', href: '/configuracoes', icon: <FiSettings size={20} /> },
