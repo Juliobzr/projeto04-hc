@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "@/app/mock/auth";
+import { login } from "@/services/auth";
 
 export function useLogin() {
   const [email, setEmail] = useState("");

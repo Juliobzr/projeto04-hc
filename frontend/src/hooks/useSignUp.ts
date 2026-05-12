@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { cadastrar } from "@/app/mock/auth";
+import { cadastrar } from "@/services/auth";
 
 export function useSignUp() {
     const [email, setEmail] = useState("");

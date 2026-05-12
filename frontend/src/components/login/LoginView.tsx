@@ -63,11 +63,14 @@ export default function LoginView({
           <LoadingButton onClick={onSubmit} colorPalette="blue">
             Entrar
           </LoadingButton>
-          <NextLink href="/cadastro" passHref>
-            <Link color="red" mt={6}>
-              Criar conta (apenas para apresentação)
-            </Link>
-          </NextLink>
+          <Link
+            as={NextLink}
+            href="/cadastro"
+            color="red"
+            mt={6}
+          >
+            Criar conta
+          </Link>
         </VStack>
       </Card>
     </Box>
