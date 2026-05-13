@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { PatientListItem } from "@/types/PatientList";
+import { listarPacientes, excluirPaciente } from "@/services/patients";
 
 const ITEMS_POR_PAGINA_OPCOES = [15, 25, 50];
 
@@ -18,10 +19,25 @@ export function usePatientList() {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dados = JSON.parse(localStorage.getItem("pacientes_mock") || "[]") as PatientListItem[];
-    setPacientes(dados);
-    const cpfParam = searchParams.get("cpf");
-    if (cpfParam) setBusca(cpfParam);
+    async function carregarPacientes() {
+      try {
+        const dados =
+          await listarPacientes();
+
+        setPacientes(dados);
+
+        const cpfParam =
+          searchParams.get("cpf");
+
+        if (cpfParam) {
+          setBusca(cpfParam);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    carregarPacientes();
   }, [searchParams]);
 
   useEffect(() => {
@@ -56,16 +72,37 @@ export function usePatientList() {
     }
   }
 
-  function handleExcluirSelecionados() {
+  async function handleExcluirSelecionados() {
     if (selecionados.length === 0) return;
-    const confirmado = window.confirm(`Deseja excluir ${selecionados.length} paciente(s) selecionado(s)?`);
+
+    const confirmado = window.confirm(
+      `Deseja excluir ${selecionados.length} paciente(s) selecionado(s)?`
+    );
+
     if (!confirmado) return;
 
-    const atualizados = pacientes.filter((p) => !selecionados.includes(p.id));
-    localStorage.setItem("pacientes_mock", JSON.stringify(atualizados));
-    setPacientes(atualizados);
-    setSelecionados([]);
-    setMenuAcaoAberto(false);
+    try {
+      await Promise.all(
+        selecionados.map((id) =>
+          excluirPaciente(id)
+        )
+      );
+
+      const atualizados =
+        pacientes.filter(
+          (p) => !selecionados.includes(p.id)
+        );
+
+      setPacientes(atualizados);
+
+      setSelecionados([]);
+
+      setMenuAcaoAberto(false);
+    } catch (error) {
+      console.error(error);
+
+      alert("Erro ao excluir pacientes");
+    }
   }
 
   function onBuscaChange(value: string) {
