@@ -1,51 +1,45 @@
+import { apiFetch } from "@/lib/apiClient";
 import { User } from "@/types/User";
 
 export async function getUsuarios(): Promise<User[]> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/users`
-  );
+  const res = await apiFetch("/api/users");
 
   return res.json();
 }
 
 export async function cadastrar(usuario: User) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/cadastrar`,
+  const res = await apiFetch(
+    "/api/auth/cadastrar",
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(usuario)
+      body: JSON.stringify(usuario),
     }
   );
 
-  if (!res.ok) {
-    const error = await res.json();
+  const data = await res.json();
 
+  if (!res.ok) {
     throw new Error(
-      error.erro || "Erro ao cadastrar usuário"
+      data.erro || "Erro ao cadastrar usuário"
     );
   }
 
-  return res.json();
+  return data;
 }
 
 export async function login(
   email: string,
   senha: string
 ) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+  const res = await apiFetch(
+    "/api/auth/login",
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+
       body: JSON.stringify({
         email,
-        senha
-      })
+        senha,
+      }),
     }
   );
 
@@ -68,8 +62,11 @@ export async function login(
 }
 
 export function logout() {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("usuario_logado");
-    localStorage.removeItem("token");
-  }
+  localStorage.removeItem("token");
+
+  localStorage.removeItem(
+    "usuario_logado"
+  );
+
+  window.location.href = "/login";
 }

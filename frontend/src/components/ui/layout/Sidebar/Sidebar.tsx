@@ -11,7 +11,7 @@ import { FiMenu, FiGrid, FiFileText, FiUsers, FiSettings, FiLogOut, FiChevronLef
 import Image from "next/image"
 import Logo from '@/assets/logo.png'
 import SidebarLink from './SidebarLink'
-import { logout } from '@/app/mock/auth'
+import { logout } from '@/services/auth'
 
 const NAV_ITEMS = [
   { label: 'Início', href: '/inicio', icon: <FiGrid size={20} /> },

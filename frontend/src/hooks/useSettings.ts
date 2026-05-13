@@ -70,7 +70,7 @@ export function useSettings() {
   }
 
   function onVoltar() {
-    router.push("/dashboard");
+    router.push("/inicio");
   }
 
   return {

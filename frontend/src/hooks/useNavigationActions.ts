@@ -7,6 +7,6 @@ export function useNavigationActions() {
 
   return {
     onVoltar: () => router.back(),
-    onInicio: () => router.push("/dashboard"),
+    onInicio: () => router.push("/inicio"),
   };
 }

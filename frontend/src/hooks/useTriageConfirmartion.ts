@@ -100,7 +100,7 @@ export function useTriageConfirmation() {
   return {
     paciente,
     onVoltar: () => router.back(),
-    onInicio: () => router.push("/dashboard"),
+    onInicio: () => router.push("/inicio"),
     onImprimirPulseira: imprimirPulseira,
     onImprimirFolha: imprimirFolha,
     calcularIdade,

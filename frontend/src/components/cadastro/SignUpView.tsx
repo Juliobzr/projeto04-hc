@@ -65,11 +65,14 @@ export default function SignUpView({
           <LoadingButton onClick={onSubmit} colorPalette="blue">
             Cadastrar
           </LoadingButton>
-          <NextLink href="/login" passHref>
-            <Link color="red" mt={6}>
-              Faça login (apenas para apresentação)
-            </Link>
-          </NextLink>
+          <Link
+            as={NextLink}
+            href="/login"
+            color="red"
+            mt={6}
+          >
+            Já tem uma conta? Faça login
+          </Link>
         </VStack>
       </Card>
     </Box>

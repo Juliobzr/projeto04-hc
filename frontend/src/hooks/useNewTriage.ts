@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { apiFetch } from "@/lib/apiClient";
 
 export function useNewTriage() {
   const router = useRouter();
@@ -35,16 +36,13 @@ export function useNewTriage() {
     if (!usuarioString) router.push("/login");
   }, [router]);
 
-  function handleSalvar() {
+  async function handleSalvar() {
     if (!nomeCompleto || !cpf || !dataNascimento) {
       alert("Preencha pelo menos Nome, CPF e Data de Nascimento.");
       return;
     }
 
-    const pacientesExistentes = JSON.parse(localStorage.getItem("pacientes_mock") || "[]");
-
     const novoPaciente = {
-      id: Date.now().toString(),
       nome: nomeCompleto,
       nomeSocial,
       dataNascimento,
@@ -56,12 +54,22 @@ export function useNewTriage() {
       especialidade,
       unidade,
       deficiencia: possuiDeficiencia === "sim" ? tipoDeficiencia.toUpperCase() : "Não",
-      criadoEm: new Date().toISOString(),
     };
 
-    pacientesExistentes.push(novoPaciente);
-    localStorage.setItem("pacientes_mock", JSON.stringify(pacientesExistentes));
-    localStorage.setItem("paciente_em_cadastro_id", novoPaciente.id);
+    const response = await apiFetch("/api/pacientes", {
+      method: "POST",
+      body: JSON.stringify(novoPaciente),
+    });
+
+    if (!response.ok) {
+      const erro = await response.json();
+      console.error("Erro do backend:", erro);
+      alert("Erro ao salvar paciente. Tente novamente.");
+      return;
+    }
+
+    const pacienteCriado = await response.json();
+    localStorage.setItem("paciente_em_cadastro_id", pacienteCriado.id);
 
     if (possuiDeficiencia === "sim" && tipoDeficiencia === "tea") {
       router.push("/nova-triagem/cadastro-tea");
@@ -96,6 +104,6 @@ export function useNewTriage() {
     setEspecialidade,
     setUnidade,
     onSalvar: handleSalvar,
-    onVoltar: () => router.push("/dashboard"),
+    onVoltar: () => router.push("/inicio"),
   };
 }
