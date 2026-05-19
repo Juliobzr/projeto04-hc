@@ -38,11 +38,20 @@ export default function PatientListView({
     <Box p={{ base: 4, md: 8 }}>
       <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" overflow="hidden">
 
-        <Flex align="center" justify="space-between" px={6} py={4} borderBottom="1px solid" borderColor="gray.100">
+        <Flex
+          align={{ base: "stretch", md: "center" }}
+          justify="space-between"
+          direction={{ base: "column", md: "row" }}
+          gap={{ base: 4, md: 0 }}
+          px={{ base: 4, md: 6 }}
+          py={4}
+          borderBottom="1px solid"
+          borderColor="gray.100"
+        >
           <Text fontSize="lg" fontWeight="600" color="gray.800">Lista de Pacientes</Text>
-          <HStack gap={3}>
+          <HStack gap={3} flexWrap="wrap" w={{ base: "100%", md: "auto" }}>
             <Flex align="center" border="1px solid" borderColor="gray.200" borderRadius="lg"
-              px={3} py={2} gap={2} bg="white" w="220px">
+              px={3} py={2} gap={2} bg="white" flex={1} minW={{ base: "100%", md: "220px" }} w={{ base: "100%", md: "220px" }}>
               <Box color="gray.400"><FiSearch size={16} /></Box>
               <Input
                 placeholder="Buscar por CPF"
@@ -136,8 +145,18 @@ export default function PatientListView({
           </table>
         </Box>
 
-        <Flex align="center" justify="space-between" px={6} py={4} borderTop="1px solid" borderColor="gray.100">
-          <HStack gap={2}>
+        <Flex
+          align="center"
+          justify="space-between"
+          direction={{ base: "column", sm: "row" }}
+          gap={4}
+          flexWrap="wrap"
+          px={{ base: 4, md: 6 }}
+          py={4}
+          borderTop="1px solid"
+          borderColor="gray.100"
+        >
+          <HStack gap={2} flexWrap="wrap">
             <select value={itensPorPagina}
               onChange={(e) => onItensPorPaginaChange(Number(e.target.value))}
               style={{ border: "1px solid #e5e7eb", borderRadius: "8px", padding: "4px 8px", fontSize: "13px", color: "#374151", cursor: "pointer" }}

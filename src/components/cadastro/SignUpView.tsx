@@ -27,12 +27,14 @@ export default function SignUpView({
       justifyContent="center"
       maxW="90rem"
       w="100%"
-      pb="12.5rem"
+      px={{ base: 4, md: 0 }}
+      pb={{ base: 8, md: "12.5rem" }}
       mx="auto"
       minH="100vh"
     >
+      <Box w="100%" maxW="23rem">
       <Card>
-        <VStack gap={1}>
+        <VStack gap={1} w="100%">
           <Box display="flex" flexDirection="column" alignItems="center" gap="1.875rem">
             <Image src={logo} alt="Logo" width={40} height={40} />
             <Box gap="0.5rem" display="flex" flexDirection="column" alignItems="center">
@@ -40,21 +42,18 @@ export default function SignUpView({
               <Text fontSize="sm" color="#8B8D97">Crie sua conta</Text>
             </Box>
           </Box>
-          <Box display="flex" flexDirection="column" gap="1.875rem" my={16}>
+          <Box display="flex" flexDirection="column" gap="1.875rem" my={{ base: 8, md: 16 }} w="100%">
             <InputText
-              width= "23rem"
               placeholder="Nome Completo"
               value={nome}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNome(e.target.value)}
             />
             <InputText
-              width= "23rem"
               placeholder="Email"
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
             <InputText
-              width= "23rem"
               placeholder="Senha"
               type="password"
               value={senha}
@@ -75,6 +74,7 @@ export default function SignUpView({
           </Link>
         </VStack>
       </Card>
+      </Box>
     </Box>
   )
 }

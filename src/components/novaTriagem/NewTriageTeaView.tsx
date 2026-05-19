@@ -50,7 +50,7 @@ function Radio({ label, value, selected, onChange }: { label: string; value: str
 
 function Section({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
-    <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={6}>
+    <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 6 }}>
       <Text fontWeight="700" fontSize="md" color="gray.800" mb={4}>{number}. {title}</Text>
       <VStack align="stretch" gap={5}>{children}</VStack>
     </Box>
@@ -124,7 +124,7 @@ export default function NewTriageTeaView({
           </Box>
           <Box>
             <Text fontWeight="600" fontSize="sm" color="gray.700" mb={3}>Interação Social:</Text>
-            <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
+            <Box display="grid" gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" } as any} gap={3}>
               {["Interação atípica", "Isolamento", "Evita contato visual", "Sem restrições"].map((item) => (
                 <Checkbox key={item} label={item} checked={interacaoSocial.includes(item)}
                   onChange={() => toggleInteracaoSocial(item)} />
@@ -136,7 +136,7 @@ export default function NewTriageTeaView({
         <Section number={3} title="Alertas Sensoriais e Regulação">
           <Box>
             <Text fontWeight="600" fontSize="sm" color="gray.700" mb={3}>Fatores de Desregulação:</Text>
-            <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
+            <Box display="grid" gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" } as any} gap={3}>
               {["Espera prolongada", "Quebra de rotina", "Multidões", "Ambiente novo"].map((item) => (
                 <Checkbox key={item} label={item} checked={fatoresDesregulacao.includes(item)}
                   onChange={() => toggleFatoresDesregulacao(item)} />
@@ -145,7 +145,7 @@ export default function NewTriageTeaView({
           </Box>
           <Box>
             <Text fontWeight="600" fontSize="sm" color="gray.700" mb={3}>Dificuldades Sensoriais:</Text>
-            <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
+            <Box display="grid" gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" } as any} gap={3}>
               {["Sensível a barulho", "Gosta de barulho", "Sensível a odores fortes", "Temperatura",
                 "Aversão a toque físico", "Aversão a certos tecidos"].map((item) => (
                 <Checkbox key={item} label={item} checked={dificuldadesSensoriais.includes(item)}
@@ -158,7 +158,7 @@ export default function NewTriageTeaView({
         <Section number={4} title="Comportamento e Fatores Clínicos">
           <Box>
             <Text fontWeight="600" fontSize="sm" color="gray.700" mb={3}>Fatores Clínicos e Rotina:</Text>
-            <Box display="grid" gridTemplateColumns="1fr 1fr" gap={3}>
+            <Box display="grid" gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" } as any} gap={3}>
               {["Distúrbios de Sono", "Rigidez Cognitiva", "Seletividade Alimentar", "Alterações Motoras"].map((item) => (
                 <Checkbox key={item} label={item} checked={fatoresClinicos.includes(item)}
                   onChange={() => toggleFatoresClinicos(item)} />

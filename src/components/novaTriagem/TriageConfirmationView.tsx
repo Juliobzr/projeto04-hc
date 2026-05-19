@@ -20,7 +20,7 @@ export default function riageConfirmationView({
         <Text fontSize="sm" fontWeight="medium">Voltar</Text>
       </HStack>
 
-      <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={10} textAlign="center" mb={6}>
+      <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 6, md: 10 }} textAlign="center" mb={6}>
         <Box w="64px" h="64px" borderRadius="full" bg="green.500"
           display="flex" alignItems="center" justifyContent="center" mx="auto" mb={4}>
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -32,11 +32,11 @@ export default function riageConfirmationView({
 
       <Flex gap={6} mb={6} direction={{ base: "column", md: "row" }}>
 
-        <Box flex={1} bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={6}>
+        <Box flex={1} bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 6 }}>
           <Text fontWeight="600" fontSize="md" color="gray.800" mb={6}>1. Visualizar Pulseira de Indentificação</Text>
           {paciente && (
             <Box border="1px solid" borderColor="gray.300" borderRadius="md" p={4} mb={6}>
-              <Flex justify="space-between" align="center">
+              <Flex justify="space-between" align="center" flexWrap="wrap" gap={3}>
                 <Box>
                   <Text fontWeight="700" fontSize="md" color="gray.800">{paciente.nome}</Text>
                   <Text fontSize="sm" color="gray.600">
@@ -65,7 +65,7 @@ export default function riageConfirmationView({
           </Box>
         </Box>
 
-        <Box flex={1} bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={6}>
+        <Box flex={1} bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 6 }}>
           <Text fontWeight="600" fontSize="md" color="gray.800" mb={6}>1. Visualizar Folha de Indentificação</Text>
           {paciente && (
             <Box border="2px solid" borderColor="gray.800" borderRadius="md" p={3} mb={6} fontSize="xs">
@@ -92,7 +92,7 @@ export default function riageConfirmationView({
 
       <Flex justify="center">
         <Box as="button" bg="blue.600" color="white" borderRadius="xl"
-          py={4} px={16} fontWeight="600" fontSize="md" cursor="pointer"
+          py={4} px={{ base: 8, md: 16 }} w={{ base: "100%", sm: "auto" }} fontWeight="600" fontSize="md" cursor="pointer"
           _hover={{ bg: "blue.700" }} display="flex" alignItems="center" gap={2}
           onClick={onInicio}>
           Início

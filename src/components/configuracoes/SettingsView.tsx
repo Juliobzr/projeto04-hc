@@ -46,7 +46,7 @@ export default function SettingsView({
 
       <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 8 }}>
 
-        <Flex justify="space-between" align="center" mb={8} gap={4}>
+        <Flex justify="space-between" align={{ base: "stretch", sm: "center" }} direction={{ base: "column", sm: "row" }} mb={8} gap={4}>
           <Text fontSize={{ base: "md", md: "lg" }} fontWeight="600" color="gray.800">
             Configurações de Conta
           </Text>
@@ -83,7 +83,7 @@ export default function SettingsView({
           </Box>
         </Flex>
 
-        <Flex gap={12} align="flex-start">
+        <Flex gap={{ base: 6, md: 12 }} align="flex-start" direction={{ base: "column", md: "row" }}>
           <Box flex={1}>
             <VStack gap={4} align="stretch">
 
@@ -97,7 +97,7 @@ export default function SettingsView({
               <InputText label="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}
                   placeholder="Cidade" />
 
-              <HStack gap={4}>
+              <Flex gap={4} direction={{ base: "column", md: "row" }}>
                 <Box flex={1}>
                   <Text fontSize="sm" color="gray.600" mb={2}>País</Text>
                   <Box position="relative">
@@ -120,7 +120,7 @@ export default function SettingsView({
                     />
                   </Box>
                 </Box>
-              </HStack>
+              </Flex>
             </VStack>
           </Box>
 
