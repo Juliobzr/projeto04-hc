@@ -3,7 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { PatientListItem } from "@/types/PatientList";
-import { listarPacientes, excluirPaciente } from "@/services/patients";
+import {
+  listarPacientes,
+  buscarPacientesPorCpf,
+  excluirPaciente,
+} from "@/services/patients";
 
 const ITEMS_POR_PAGINA_OPCOES = [15, 25, 50];
 
@@ -21,13 +25,13 @@ export function usePatientList() {
   useEffect(() => {
     async function carregarPacientes() {
       try {
-        const dados =
-          await listarPacientes();
+        const cpfParam = searchParams.get("cpf");
+
+        const dados = cpfParam
+          ? await buscarPacientesPorCpf(cpfParam)
+          : await listarPacientes();
 
         setPacientes(dados);
-
-        const cpfParam =
-          searchParams.get("cpf");
 
         if (cpfParam) {
           setBusca(cpfParam);
