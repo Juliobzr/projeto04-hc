@@ -92,7 +92,7 @@ export default function NewTriageView({
 
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={10} alignItems="end">
           <Box>
-            <Text fontWeight="bold" mb={4} color="gray.700">O paciente possui alguma deficiência?</Text>
+            <Text fontWeight="bold" mb={4} color="gray.700">O paciente possui alguma necessidade especial?</Text>
             <HStack gap={4}>
               <Flex flex={1} p={2} borderRadius="md" border="1px solid" cursor="pointer" justify="center"
                 borderColor={possuiDeficiencia === "sim" ? "gray.800" : "gray.300"}
@@ -113,7 +113,7 @@ export default function NewTriageView({
 
           {possuiDeficiencia === "sim" ? (
             <Box>
-              <Text fontWeight="bold" mb={2} color="gray.700">Selecione a deficiência?</Text>
+              <Text fontWeight="bold" mb={2} color="gray.700">Selecione a necessidade especial?</Text>
               <select
                 value={tipoDeficiencia}
                 onChange={(e) => setTipoDeficiencia(e.target.value)}
@@ -129,6 +129,7 @@ export default function NewTriageView({
                 }}
               >
                 <option value="tea">Autismo (TEA)</option>
+                <option value="não informado">Prefiro não informar</option>
                 <option value="outra">Outra</option>
               </select>
             </Box>
