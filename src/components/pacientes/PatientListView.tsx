@@ -104,7 +104,7 @@ export default function PatientListView({
                     style={checkboxStyle}
                   />
                 </th>
-                {["Nome", "Data de Nascimento", "CPF", "Deficiência", "Telefone"].map((col) => (
+                {["Nome", "Data de Nascimento", "CPF", "Necessidade Especial", "Telefone"].map((col) => (
                   <th key={col} style={{ textAlign: "left", padding: "12px 16px", fontSize: "13px", fontWeight: "500", color: "#6b7280", whiteSpace: "nowrap" }}>
                     {col}
                   </th>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { apiFetch } from "@/lib/apiClient";
+import { criarPaciente } from "@/services/patients";
 
 export function useNewTriage() {
   const router = useRouter();
@@ -56,25 +56,19 @@ export function useNewTriage() {
       deficiencia: possuiDeficiencia === "sim" ? tipoDeficiencia.toUpperCase() : "Não",
     };
 
-    const response = await apiFetch("/api/pacientes", {
-      method: "POST",
-      body: JSON.stringify(novoPaciente),
-    });
+    try {
+      const pacienteCriado = await criarPaciente(novoPaciente);
+      localStorage.setItem("paciente_em_cadastro_id", pacienteCriado.id);
 
-    if (!response.ok) {
-      const erro = await response.json();
-      console.error("Erro do backend:", erro);
+      if (possuiDeficiencia === "sim" && tipoDeficiencia === "tea") {
+        router.push("/nova-triagem/cadastro-tea");
+      } else {
+        localStorage.removeItem("paciente_em_cadastro_id");
+        router.push("/nova-triagem/confirmacao-simples");
+      }
+    } catch (error) {
+      console.error(error);
       alert("Erro ao salvar paciente. Tente novamente.");
-      return;
-    }
-
-    const pacienteCriado = await response.json();
-    localStorage.setItem("paciente_em_cadastro_id", pacienteCriado.id);
-
-    if (possuiDeficiencia === "sim" && tipoDeficiencia === "tea") {
-      router.push("/nova-triagem/cadastro-tea");
-    } else {
-      router.push("/nova-triagem/confirmacao-simples");
     }
   }
 

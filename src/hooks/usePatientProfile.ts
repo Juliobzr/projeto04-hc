@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { buscarPaciente, atualizarPaciente } from "@/services/patients";
 
 function toggleInList(list: string[], item: string) {
   return list.includes(item) ? list.filter((i) => i !== item) : [...list, item];
@@ -42,34 +43,40 @@ export function usePatientProfile() {
     if (usuarioString) setNomeUsuario(JSON.parse(usuarioString).nome);
     else router.push("/login");
 
-    const pacientes = JSON.parse(localStorage.getItem("pacientes_mock") || "[]");
-    const paciente = pacientes.find((p: { id: string }) => p.id === id);
-    if (paciente) {
-      setNome(paciente.nome || "");
-      setNomeSocial(paciente.nomeSocial || "");
-      setDataNascimento(paciente.dataNascimento || "");
-      setCpf(paciente.cpf || "");
-      setNomeResponsavel(paciente.nomeResponsavel || "");
-      setTelefone(paciente.telefone || "");
-      setProntuario(paciente.prontuario || "");
-      setCartaoSUS(paciente.cartaoSUS || "");
-      setEspecialidade(paciente.especialidade || "");
-      setUnidade(paciente.unidade || "");
-      setDeficiencia(paciente.deficiencia || "Não");
+    async function carregarPaciente() {
+      try {
+        const paciente = await buscarPaciente(id);
+        setNome(paciente.nome || "");
+        setNomeSocial(paciente.nomeSocial || "");
+        setDataNascimento(paciente.dataNascimento || "");
+        setCpf(paciente.cpf || "");
+        setNomeResponsavel(paciente.nomeResponsavel || "");
+        setTelefone(paciente.telefone || "");
+        setProntuario(paciente.prontuario || "");
+        setCartaoSUS(paciente.cartaoSUS || "");
+        setEspecialidade(paciente.especialidade || "");
+        setUnidade(paciente.unidade || "");
+        setDeficiencia(paciente.deficiencia || "Não");
 
-      if (paciente.tea) {
-        setTemTEA(true);
-        setNivelSuporte(paciente.tea.nivelSuporte || "");
-        setAutonomia(paciente.tea.autonomia || "");
-        setComunicacao(paciente.tea.comunicacao || "");
-        setComunicacaoAlternativa(paciente.tea.comunicacaoAlternativa || "");
-        setInteracaoSocial(paciente.tea.interacaoSocial || []);
-        setFatoresDesregulacao(paciente.tea.fatoresDesregulacao || []);
-        setDificuldadesSensoriais(paciente.tea.dificuldadesSensoriais || []);
-        setFatoresClinicos(paciente.tea.fatoresClinicos || []);
-        setHiperfoco(paciente.tea.hiperfoco || "");
+        if (paciente.tea) {
+          setTemTEA(true);
+          setNivelSuporte(paciente.tea.nivelSuporte || "");
+          setAutonomia(paciente.tea.autonomia || "");
+          setComunicacao(paciente.tea.comunicacao || "");
+          setComunicacaoAlternativa(paciente.tea.comunicacaoAlternativa || "");
+          setInteracaoSocial(paciente.tea.interacaoSocial || []);
+          setFatoresDesregulacao(paciente.tea.fatoresDesregulacao || []);
+          setDificuldadesSensoriais(paciente.tea.dificuldadesSensoriais || []);
+          setFatoresClinicos(paciente.tea.fatoresClinicos || []);
+          setHiperfoco(paciente.tea.hiperfoco || "");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao carregar paciente.");
       }
     }
+
+    carregarPaciente();
   }, [id, router]);
 
   const resumoTexto = useMemo(() => {
@@ -96,25 +103,40 @@ export function usePatientProfile() {
     return idade;
   }
 
-  function handleSalvar() {
-    const pacientes = JSON.parse(localStorage.getItem("pacientes_mock") || "[]");
-    const index = pacientes.findIndex((p: { id: string }) => p.id === id);
-    if (index !== -1) {
-      pacientes[index] = {
-        ...pacientes[index],
-        nome, nomeSocial, dataNascimento, cpf, nomeResponsavel,
-        telefone, prontuario, cartaoSUS, especialidade, unidade, deficiencia,
+  async function handleSalvar() {
+    try {
+      await atualizarPaciente(id, {
+        nome,
+        nomeSocial,
+        dataNascimento,
+        cpf,
+        nomeResponsavel,
+        telefone,
+        prontuario,
+        cartaoSUS,
+        especialidade,
+        unidade,
+        deficiencia,
         ...(temTEA && {
           tea: {
-            nivelSuporte, autonomia, comunicacao, comunicacaoAlternativa,
-            interacaoSocial, fatoresDesregulacao, dificuldadesSensoriais,
-            fatoresClinicos, hiperfoco,
-          }
-        })
-      };
-      localStorage.setItem("pacientes_mock", JSON.stringify(pacientes));
+            nivelSuporte,
+            autonomia,
+            comunicacao,
+            comunicacaoAlternativa,
+            interacaoSocial,
+            fatoresDesregulacao,
+            dificuldadesSensoriais,
+            fatoresClinicos,
+            hiperfoco,
+          },
+        }),
+      });
+
       setSalvo(true);
       setTimeout(() => setSalvo(false), 2000);
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao salvar paciente. Tente novamente.");
     }
   }
 

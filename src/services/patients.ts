@@ -1,5 +1,21 @@
 import { apiFetch } from "@/lib/apiClient";
 
+export async function buscarPacientesPorCpf(cpf: string) {
+  const res = await apiFetch(
+    `/api/pacientes/buscar?cpf=${encodeURIComponent(cpf)}`
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(
+      data.erro || "Erro ao buscar pacientes"
+    );
+  }
+
+  return data;
+}
+
 export async function listarPacientes() {
   const res = await apiFetch(
     "/api/pacientes"

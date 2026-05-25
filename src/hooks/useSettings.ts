@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import {
+  buscarConfiguracoes,
+  salvarConfiguracoes,
+} from "@/services/users";
 
 export function useSettings() {
   const router = useRouter();
@@ -17,27 +21,34 @@ export function useSettings() {
   const [estado, setEstado] = useState("PE");
   const [foto, setFoto] = useState<string | null>(null);
   const [salvo, setSalvo] = useState(false);
-  const [selected, setSelected] = useState("")
+  const [selected, setSelected] = useState("");
 
   useEffect(() => {
     const usuarioString = localStorage.getItem("usuario_logado");
-    if (usuarioString) {
-      const usuario = JSON.parse(usuarioString);
-      const partes = (usuario.nome || "").split(" ");
-      setPrimeiroNome(partes[0] || "");
-      setUltimoNome(partes.slice(1).join(" ") || "");
-      setEmail(usuario.email || "");
-    } else {
+    if (!usuarioString) {
       router.push("/login");
+      return;
     }
 
-    const config = JSON.parse(localStorage.getItem("configuracoes_usuario") || "{}");
-    if (config.numero) setNumero(config.numero);
-    if (config.instituicao) setInstituicao(config.instituicao);
-    if (config.cidade) setCidade(config.cidade);
-    if (config.pais) setPais(config.pais);
-    if (config.estado) setEstado(config.estado);
-    if (config.foto) setFoto(config.foto);
+    async function carregarConfiguracoes() {
+      try {
+        const config = await buscarConfiguracoes();
+        const partes = (config.nome || "").split(" ");
+        setPrimeiroNome(partes[0] || "");
+        setUltimoNome(partes.slice(1).join(" ") || "");
+        setEmail(config.email || "");
+        if (config.numero) setNumero(config.numero);
+        if (config.instituicao) setInstituicao(config.instituicao);
+        if (config.cidade) setCidade(config.cidade);
+        if (config.pais) setPais(config.pais);
+        if (config.estado) setEstado(config.estado);
+        if (config.foto) setFoto(config.foto);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    carregarConfiguracoes();
   }, [router]);
 
   function handleFoto(e: React.ChangeEvent<HTMLInputElement>) {
@@ -48,21 +59,35 @@ export function useSettings() {
     reader.readAsDataURL(file);
   }
 
-  function handleAtualizar() {
-    const usuarioString = localStorage.getItem("usuario_logado");
-    if (usuarioString) {
-      const usuario = JSON.parse(usuarioString);
-      usuario.nome = `${primeiroNome} ${ultimoNome}`.trim();
-      usuario.email = email;
-      localStorage.setItem("usuario_logado", JSON.stringify(usuario));
+  async function handleAtualizar() {
+    const nome = `${primeiroNome} ${ultimoNome}`.trim();
+
+    try {
+      await salvarConfiguracoes({
+        nome,
+        email,
+        numero,
+        instituicao,
+        cidade,
+        pais,
+        estado,
+        foto: foto ?? undefined,
+      });
+
+      const usuarioString = localStorage.getItem("usuario_logado");
+      if (usuarioString) {
+        const usuario = JSON.parse(usuarioString);
+        usuario.nome = nome;
+        usuario.email = email;
+        localStorage.setItem("usuario_logado", JSON.stringify(usuario));
+      }
+
+      setSalvo(true);
+      setTimeout(() => setSalvo(false), 2000);
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao salvar configurações. Tente novamente.");
     }
-
-    localStorage.setItem("configuracoes_usuario", JSON.stringify({
-      numero, instituicao, cidade, pais, estado, foto,
-    }));
-
-    setSalvo(true);
-    setTimeout(() => setSalvo(false), 2000);
   }
 
   function onAbrirSeletorFoto() {

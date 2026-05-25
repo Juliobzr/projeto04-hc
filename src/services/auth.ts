@@ -1,12 +1,6 @@
 import { apiFetch } from "@/lib/apiClient";
 import { User } from "@/types/User";
 
-export async function getUsuarios(): Promise<User[]> {
-  const res = await apiFetch("/api/users");
-
-  return res.json();
-}
-
 export async function cadastrar(usuario: User) {
   const res = await apiFetch(
     "/api/auth/cadastrar",

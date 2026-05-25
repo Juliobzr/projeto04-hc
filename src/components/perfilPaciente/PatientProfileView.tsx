@@ -125,7 +125,7 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
         <Text fontSize="sm" fontWeight="medium">Voltar</Text>
       </HStack>
 
-      {temTEA && (
+      {true && (
         <Flex mb={6} gap={3} direction={{ base: "column", md: "row" }}>
           <Box as="button" bg="blue.600" color="white" borderRadius="lg" py={3} px={6}
             fontWeight="600" fontSize="sm" cursor="pointer" _hover={{ bg: "blue.700" }}
@@ -159,7 +159,7 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
 
             <Box>
               <Text fontWeight="600" fontSize="sm" color="gray.700" mb={2}>
-                O paciente possui alguma deficiência?
+                O paciente possui alguma necessidade especial?
               </Text>
               <HStack gap={3}>
                 <Flex align="center" gap={2} px={4} py={2} borderRadius="lg" border="1px solid" cursor="pointer"
@@ -192,13 +192,14 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
             {deficiencia !== "Não" && (
               <Box>
                 <Text fontWeight="600" fontSize="sm" color="gray.700" mb={2}>
-                  Selecione a deficiência?
+                  Selecione a necessidade especial do paciente:
                 </Text>
                 <select value={deficiencia} onChange={(e) => setDeficiencia(e.target.value)}
                   style={{ ...inputStyle, width: "100%" }}
                 >
                   <option value="TEA">Autismo (TEA)</option>
-                  <option value="Sim">Outra</option>
+                  <option value="não informado">Prefiro não informar</option>
+                  <option value="outra">Outra</option>
                 </select>
               </Box>
             )}

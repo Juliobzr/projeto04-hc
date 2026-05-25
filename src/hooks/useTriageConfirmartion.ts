@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PatientConfirmation } from "@/types/TriageConfirmation";
+import { buscarPaciente } from "@/services/patients";
 
 export function useTriageConfirmation() {
   const router = useRouter();
@@ -13,8 +14,26 @@ export function useTriageConfirmation() {
     const usuarioString = localStorage.getItem("usuario_logado");
     if (usuarioString) setNomeUsuario(JSON.parse(usuarioString).nome);
 
-    const pacientes = JSON.parse(localStorage.getItem("pacientes_mock") || "[]") as PatientConfirmation[];
-    if (pacientes.length > 0) setPaciente(pacientes[pacientes.length - 1]);
+    async function carregarPaciente() {
+      const idEmCadastro = localStorage.getItem("paciente_em_cadastro_id");
+      if (!idEmCadastro) return;
+
+      try {
+        const dados = await buscarPaciente(idEmCadastro);
+        setPaciente({
+          nome: dados.nome,
+          dataNascimento: dados.dataNascimento,
+          deficiencia: dados.deficiencia,
+          prontuario: dados.prontuario,
+          nomeResponsavel: dados.nomeResponsavel,
+          tea: dados.tea ?? undefined,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    carregarPaciente();
   }, []);
 
   function calcularIdade(dataNascimento: string) {
@@ -97,10 +116,15 @@ export function useTriageConfirmation() {
     if (win) { win.document.write(html); win.document.close(); win.print(); }
   }
 
+  function handleInicio() {
+    localStorage.removeItem("paciente_em_cadastro_id");
+    router.push("/inicio");
+  }
+
   return {
     paciente,
     onVoltar: () => router.back(),
-    onInicio: () => router.push("/inicio"),
+    onInicio: handleInicio,
     onImprimirPulseira: imprimirPulseira,
     onImprimirFolha: imprimirFolha,
     calcularIdade,
