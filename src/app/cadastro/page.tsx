@@ -23,7 +23,7 @@ export default function SignUpPage() {
 
     const usuario = JSON.parse(usuarioSalvo);
 
-    if (usuario.role !== "ADMIN") {
+    if (usuario.role !== "GESTOR") {
       router.push("/inicio");
       return;
     }

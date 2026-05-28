@@ -12,12 +12,12 @@ import Image from "next/image"
 import Logo from '@/assets/logo.png'
 import SidebarLink from './SidebarLink'
 import { logout } from '@/services/auth'
+import { LoggedUser } from '@/types/User'
 
-const NAV_ITEMS = [
+const NAV_ITEMS_BASE = [
   { label: 'Início', href: '/inicio', icon: <FiGrid size={20} /> },
   { label: 'Nova Triagem', href: '/nova-triagem', icon: <FiFileText size={20} /> },
   { label: 'Pacientes', href: '/pacientes', icon: <FiUsers size={20} /> },
-  { label: 'Configurações', href: '/configuracoes', icon: <FiSettings size={20} /> },
 ]
 
 export default function Sidebar() {
@@ -26,16 +26,33 @@ export default function Sidebar() {
   
   const [open, setOpen] = useState(true)
   const [isMounted, setIsMounted] = useState(false)
+  const [role, setRole] = useState<LoggedUser["role"] | null>(null)
   
   const isMobile = useBreakpointValue({ base: true, md: false })
 
   useEffect(() => {
     setIsMounted(true)
+    const usuarioSalvo = localStorage.getItem("usuario_logado")
+    if (usuarioSalvo) {
+      const usuario = JSON.parse(usuarioSalvo) as LoggedUser
+      setRole(usuario.role)
+    }
+
     const savedState = localStorage.getItem("sidebar_recolhida")
     if (savedState !== null) {
       setOpen(savedState === "true")
     }
   }, [])
+
+  const navItems = [
+    ...NAV_ITEMS_BASE,
+    ...(role === "GESTOR"
+      ? [
+          { label: 'Admin', href: '/admin', icon: <FiUsers size={20} /> },
+          { label: 'Configurações', href: '/configuracoes', icon: <FiSettings size={20} /> },
+        ]
+      : []),
+  ]
 
   const handleToggle = () => {
     const newState = !open
@@ -74,7 +91,7 @@ export default function Sidebar() {
       </HStack>
 
       <VStack gap={1} align="stretch" flex={1}>
-        {NAV_ITEMS.map((item) => (
+        {navItems.map((item) => (
           <SidebarLink
             key={item.href}
             icon={item.icon}

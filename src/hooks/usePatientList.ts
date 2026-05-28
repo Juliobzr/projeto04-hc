@@ -20,6 +20,7 @@ export function usePatientList() {
   const [itensPorPagina, setItensPorPagina] = useState(15);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [menuAcaoAberto, setMenuAcaoAberto] = useState(false);
+  const [menuPacienteAbertoId, setMenuPacienteAbertoId] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -118,6 +119,21 @@ export function usePatientList() {
     router.push(`/pacientes/${id}`);
   }
 
+  async function onExcluirPaciente(id: string) {
+    const confirmado = window.confirm("Deseja excluir este paciente?");
+    if (!confirmado) return;
+
+    try {
+      await excluirPaciente(id);
+      setPacientes((prev) => prev.filter((paciente) => paciente.id !== id));
+      setSelecionados((prev) => prev.filter((selecionado) => selecionado !== id));
+      setMenuPacienteAbertoId(null);
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao excluir paciente");
+    }
+  }
+
   function onItensPorPaginaChange(n: number) {
     setItensPorPagina(n);
     setPaginaAtual(1);
@@ -144,5 +160,11 @@ export function usePatientList() {
     onItensPorPaginaChange,
     onPaginaAnterior: () => setPaginaAtual((p) => Math.max(1, p - 1)),
     onPaginaProxima: () => setPaginaAtual((p) => Math.min(totalPaginas, p + 1)),
+    menuPacienteAbertoId,
+    onToggleMenuPaciente: (id: string) =>
+      setMenuPacienteAbertoId((prev) => (prev === id ? null : id)),
+    onExibirPaciente: onIrParaPaciente,
+    onEditarPaciente: onIrParaPaciente,
+    onExcluirPaciente,
   };
 }

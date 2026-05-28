@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Box, Flex, Text, Input, Button, HStack } from "@chakra-ui/react";
 import { FiSearch, FiFilter, FiChevronDown, FiChevronLeft, FiChevronRight, FiTrash2 } from "react-icons/fi";
 import { PatientListViewProps } from "@/types/PatientList";
@@ -25,7 +27,17 @@ export default function PatientListView({
   onItensPorPaginaChange,
   onPaginaAnterior,
   onPaginaProxima,
+  menuPacienteAbertoId,
+  onToggleMenuPaciente,
+  onExibirPaciente,
+  onEditarPaciente,
+  onExcluirPaciente,
 }: PatientListViewProps) {
+  const [menuPacientePos, setMenuPacientePos] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
+
   const checkboxStyle: React.CSSProperties = {
     cursor: "pointer",
     width: "16px",
@@ -34,9 +46,13 @@ export default function PatientListView({
     backgroundColor: "white",
   };
 
+  const pacienteSelecionado = pacientesPagina.find(
+    (paciente) => paciente.id === menuPacienteAbertoId
+  );
+
   return (
     <Box p={{ base: 4, md: 8 }}>
-      <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" overflow="hidden">
+      <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" overflow="visible">
 
         <Flex
           align={{ base: "stretch", md: "center" }}
@@ -92,7 +108,7 @@ export default function PatientListView({
           </HStack>
         </Flex>
 
-        <Box overflowX="auto">
+        <Box overflowX="auto" overflowY="visible">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
@@ -104,7 +120,7 @@ export default function PatientListView({
                     style={checkboxStyle}
                   />
                 </th>
-                {["Nome", "Data de Nascimento", "CPF", "Necessidade Especial", "Telefone"].map((col) => (
+                {["Nome", "Data de Nascimento", "CPF", "Necessidade Especial", "Telefone", "Ações"].map((col) => (
                   <th key={col} style={{ textAlign: "left", padding: "12px 16px", fontSize: "13px", fontWeight: "500", color: "#6b7280", whiteSpace: "nowrap" }}>
                     {col}
                   </th>
@@ -114,12 +130,13 @@ export default function PatientListView({
             <tbody>
               {pacientesPagina.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ padding: "40px", textAlign: "center", color: "#9ca3af", fontSize: "14px" }}>
+                  <td colSpan={7} style={{ padding: "40px", textAlign: "center", color: "#9ca3af", fontSize: "14px" }}>
                     Nenhum paciente encontrado.
                   </td>
                 </tr>
               ) : (
-                pacientesPagina.map((paciente) => (
+                pacientesPagina.map((paciente) => {
+                  return (
                   <tr key={paciente.id}
                     style={{ borderBottom: "1px solid #f3f4f6", backgroundColor: selecionados.includes(paciente.id) ? "#eff6ff" : "white", cursor: "pointer" }}
                     onClick={() => onIrParaPaciente(paciente.id)}
@@ -138,8 +155,28 @@ export default function PatientListView({
                     <td style={{ padding: "14px 16px", fontSize: "14px", color: "#374151" }}>{paciente.cpf}</td>
                     <td style={{ padding: "14px 16px", fontSize: "14px", color: "#374151" }}>{paciente.deficiencia}</td>
                     <td style={{ padding: "14px 16px", fontSize: "14px", color: "#374151" }}>{paciente.telefone}</td>
+                    <td style={{ padding: "14px 16px", fontSize: "14px", color: "#374151", position: "relative" }}
+                      onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        variant="outline"
+                        size="xs"
+                        onClick={(e) => {
+                          const rect = (
+                            e.currentTarget as HTMLButtonElement
+                          ).getBoundingClientRect();
+
+                          setMenuPacientePos({
+                            top: rect.bottom + 6,
+                            left: rect.right,
+                          });
+                          onToggleMenuPaciente(paciente.id);
+                        }}
+                      >
+                        Opções <FiChevronDown size={14} />
+                      </Button>
+                    </td>
                   </tr>
-                ))
+                )})
               )}
             </tbody>
           </table>
@@ -180,6 +217,55 @@ export default function PatientListView({
         </Flex>
 
       </Box>
+      {typeof window !== "undefined" &&
+        menuPacienteAbertoId &&
+        menuPacientePos &&
+        pacienteSelecionado &&
+        createPortal(
+          <Box
+            position="fixed"
+            top={`${menuPacientePos.top}px`}
+            left={`${menuPacientePos.left}px`}
+            transform="translateX(-100%)"
+            bg="white"
+            borderRadius="lg"
+            border="1px solid"
+            borderColor="gray.200"
+            boxShadow="md"
+            zIndex={2000}
+            minW="140px"
+          >
+            <Box
+              px={3}
+              py={2}
+              cursor="pointer"
+              _hover={{ bg: "gray.50" }}
+              onClick={() => onExibirPaciente(pacienteSelecionado.id)}
+            >
+              Exibir dados
+            </Box>
+            <Box
+              px={3}
+              py={2}
+              cursor="pointer"
+              _hover={{ bg: "gray.50" }}
+              onClick={() => onEditarPaciente(pacienteSelecionado.id)}
+            >
+              Editar
+            </Box>
+            <Box
+              px={3}
+              py={2}
+              cursor="pointer"
+              color="red.500"
+              _hover={{ bg: "red.50" }}
+              onClick={() => onExcluirPaciente(pacienteSelecionado.id)}
+            >
+              Excluir
+            </Box>
+          </Box>,
+          document.body
+        )}
     </Box>
   );
 }

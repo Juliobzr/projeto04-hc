@@ -1,5 +1,5 @@
 import { apiFetch } from "@/lib/apiClient";
-import { User } from "@/types/User";
+import { LoggedUser, User } from "@/types/User";
 
 export async function cadastrar(usuario: User) {
   const res = await apiFetch(
@@ -52,7 +52,7 @@ export async function login(
     JSON.stringify(data.usuario)
   );
 
-  return data.usuario;
+  return data.usuario as LoggedUser;
 }
 
 export function logout() {

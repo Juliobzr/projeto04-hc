@@ -11,15 +11,15 @@ export function useSignUp() {
     const [erro, setErro] = useState("");
     const router = useRouter();
 
-    function handleCadastro() {
+    async function handleCadastro() {
     try {
       if (!email || !senha || !nome) {
         setErro("Preencha todos os campos");
         return;
       }
-      cadastrar({ email, senha, nome });
-      alert("Usuário cadastrado com sucesso!");
-      router.push("/login");
+      await cadastrar({ email, senha, nome, role: "FUNCIONARIO" });
+      alert("Funcionário cadastrado com sucesso!");
+      router.push("/admin");
 
     } catch (e: any) {
       setErro(e.message);

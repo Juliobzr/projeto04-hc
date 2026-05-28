@@ -28,4 +28,9 @@ export type PatientListViewProps = {
   onItensPorPaginaChange: (n: number) => void;
   onPaginaAnterior: () => void;
   onPaginaProxima: () => void;
+  menuPacienteAbertoId: string | null;
+  onToggleMenuPaciente: (id: string) => void;
+  onExibirPaciente: (id: string) => void;
+  onEditarPaciente: (id: string) => void;
+  onExcluirPaciente: (id: string) => void;
 };
