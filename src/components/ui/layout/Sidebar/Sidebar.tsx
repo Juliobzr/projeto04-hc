@@ -49,7 +49,6 @@ export default function Sidebar() {
     ...(role === "GESTOR"
       ? [
           { label: 'Admin', href: '/admin', icon: <FiUsers size={20} /> },
-          { label: 'Configurações', href: '/configuracoes', icon: <FiSettings size={20} /> },
         ]
       : []),
   ]

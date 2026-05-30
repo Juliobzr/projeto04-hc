@@ -21,6 +21,8 @@ export function usePatientList() {
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [menuAcaoAberto, setMenuAcaoAberto] = useState(false);
   const [menuPacienteAbertoId, setMenuPacienteAbertoId] = useState<string | null>(null);
+  const [modalAberto, setModalAberto] = useState(false);
+  const [pacienteModalId, setPacienteModalId] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -119,6 +121,12 @@ export function usePatientList() {
     router.push(`/pacientes/${id}`);
   }
 
+  function onExibirInformacoesPaciente(id: string) {
+    setPacienteModalId(id);
+    setModalAberto(true);
+    setMenuPacienteAbertoId(null);
+  }
+
   async function onExcluirPaciente(id: string) {
     const confirmado = window.confirm("Deseja excluir este paciente?");
     if (!confirmado) return;
@@ -161,10 +169,13 @@ export function usePatientList() {
     onPaginaAnterior: () => setPaginaAtual((p) => Math.max(1, p - 1)),
     onPaginaProxima: () => setPaginaAtual((p) => Math.min(totalPaginas, p + 1)),
     menuPacienteAbertoId,
-    onToggleMenuPaciente: (id: string) =>
+    onToggleMenuPaciente: (id: string | null) =>
       setMenuPacienteAbertoId((prev) => (prev === id ? null : id)),
-    onExibirPaciente: onIrParaPaciente,
+    onExibirPaciente: onExibirInformacoesPaciente,
     onEditarPaciente: onIrParaPaciente,
     onExcluirPaciente,
+    modalAberto,
+    pacienteModalId,
+    onFecharModal: () => setModalAberto(false),
   };
 }

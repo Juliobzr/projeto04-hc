@@ -18,7 +18,6 @@ export function useSignUp() {
         return;
       }
       await cadastrar({ email, senha, nome, role: "FUNCIONARIO" });
-      alert("Funcionário cadastrado com sucesso!");
       router.push("/admin");
 
     } catch (e: any) {

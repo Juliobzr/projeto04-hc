@@ -29,8 +29,11 @@ export type PatientListViewProps = {
   onPaginaAnterior: () => void;
   onPaginaProxima: () => void;
   menuPacienteAbertoId: string | null;
-  onToggleMenuPaciente: (id: string) => void;
+  onToggleMenuPaciente: (id: string | null) => void;
   onExibirPaciente: (id: string) => void;
   onEditarPaciente: (id: string) => void;
   onExcluirPaciente: (id: string) => void;
+  modalAberto: boolean;
+  pacienteModalId: string | null;
+  onFecharModal: () => void;
 };

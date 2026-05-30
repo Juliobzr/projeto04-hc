@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Box, Flex, Text, Input, Button, HStack } from "@chakra-ui/react";
 import { FiSearch, FiFilter, FiChevronDown, FiChevronLeft, FiChevronRight, FiTrash2 } from "react-icons/fi";
 import { PatientListViewProps } from "@/types/PatientList";
+import PatientViewModal from "./PatientViewModal";
 
 export default function PatientListView({
   pacientesPagina,
@@ -32,11 +33,15 @@ export default function PatientListView({
   onExibirPaciente,
   onEditarPaciente,
   onExcluirPaciente,
+  modalAberto,
+  pacienteModalId,
+  onFecharModal,
 }: PatientListViewProps) {
   const [menuPacientePos, setMenuPacientePos] = useState<{
     top: number;
     left: number;
   } | null>(null);
+  const menuPacienteRef = useRef<HTMLDivElement>(null);
 
   const checkboxStyle: React.CSSProperties = {
     cursor: "pointer",
@@ -49,6 +54,16 @@ export default function PatientListView({
   const pacienteSelecionado = pacientesPagina.find(
     (paciente) => paciente.id === menuPacienteAbertoId
   );
+
+  useEffect(() => {
+    function handleClickFora(e: MouseEvent) {
+      if (menuPacienteRef.current && !menuPacienteRef.current.contains(e.target as Node)) {
+        onToggleMenuPaciente(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickFora);
+    return () => document.removeEventListener("mousedown", handleClickFora);
+  }, [onToggleMenuPaciente]);
 
   return (
     <Box p={{ base: 4, md: 8 }}>
@@ -223,6 +238,7 @@ export default function PatientListView({
         pacienteSelecionado &&
         createPortal(
           <Box
+            ref={menuPacienteRef}
             position="fixed"
             top={`${menuPacientePos.top}px`}
             left={`${menuPacientePos.left}px`}
@@ -266,6 +282,7 @@ export default function PatientListView({
           </Box>,
           document.body
         )}
+      <PatientViewModal isOpen={modalAberto} pacienteId={pacienteModalId} onClose={onFecharModal} />
     </Box>
   );
 }
