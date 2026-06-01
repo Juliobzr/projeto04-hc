@@ -18,6 +18,7 @@ type PatientData = {
   especialidade: string;
   unidade: string;
   deficiencia: string;
+  relatorioIA?: string;
   tea?: {
     nivelSuporte: string;
     autonomia: string;
@@ -245,6 +246,15 @@ export default function PatientViewModal({ isOpen, pacienteId, onClose }: { isOp
         <div class="field-value ${!teaData.hiperfoco ? 'empty' : ''}">${teaData.hiperfoco || 'Não informado'}</div>
       </div>
     </div>
+
+    ${paciente.relatorioIA ? `
+    <div class="section">
+      <div class="section-title">8. Relatório da IA</div>
+      <div class="field">
+        <div class="field-value" style="white-space: pre-wrap; font-size: 13px; line-height: 1.6;">${paciente.relatorioIA}</div>
+      </div>
+    </div>
+    ` : ''}
     ` : ''}
 
     <div class="footer">
@@ -395,6 +405,22 @@ export default function PatientViewModal({ isOpen, pacienteId, onClose }: { isOp
                     <DisplayField label="Fatores Clínicos" value={paciente.tea.fatoresClinicos} />
                     <DisplayField label="Hiperfoco" value={paciente.tea.hiperfoco} />
                   </Section>
+
+                  {paciente.relatorioIA && (
+                    <Section number={8} title="Relatório da IA">
+                      <Box
+                        borderRadius="lg"
+                        border="1px solid"
+                        borderColor="gray.200"
+                        p={4}
+                        bg="gray.50"
+                      >
+                        <Text fontSize="sm" color="gray.700" lineHeight="1.6" whiteSpace="pre-wrap">
+                          {paciente.relatorioIA}
+                        </Text>
+                      </Box>
+                    </Section>
+                  )}
                 </>
               )}
             </VStack>

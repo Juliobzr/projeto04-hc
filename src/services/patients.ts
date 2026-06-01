@@ -113,3 +113,22 @@ export async function excluirPaciente(
     );
   }
 }
+
+export async function gerarRelatorioIA(id: string) {
+  const res = await apiFetch(
+    `/api/pacientes/${id}/relatorio-ia`,
+    {
+      method: "POST",
+    }
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(
+      data.erro || "Erro ao gerar relatório"
+    );
+  }
+
+  return data.relatorio;
+}

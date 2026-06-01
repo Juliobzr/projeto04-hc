@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { buscarPaciente, atualizarPaciente } from "@/services/patients";
+import { buscarPaciente, atualizarPaciente, gerarRelatorioIA as gerarRelatorioIAService } from "@/services/patients";
 
 function toggleInList(list: string[], item: string) {
   return list.includes(item) ? list.filter((i) => i !== item) : [...list, item];
@@ -37,6 +37,8 @@ export function usePatientProfile() {
   const [dificuldadesSensoriais, setDificuldadesSensoriais] = useState<string[]>([]);
   const [fatoresClinicos, setFatoresClinicos] = useState<string[]>([]);
   const [hiperfoco, setHiperfoco] = useState("");
+  const [relatorioIA, setRelatorioIA] = useState("");
+  const [gerandoRelatorio, setGerandoRelatorio] = useState(false);
 
   useEffect(() => {
     const usuarioString = localStorage.getItem("usuario_logado");
@@ -192,11 +194,31 @@ export function usePatientProfile() {
     if (win) { win.document.write(html); win.document.close(); win.print(); }
   }
 
+  async function handleGerarRelatorio() {
+    if (!temTEA) {
+      alert("Paciente não possui dados TEA. Ative a opção TEA antes de gerar o relatório.");
+      return;
+    }
+
+    try {
+      setGerandoRelatorio(true);
+      const relatorio = await gerarRelatorioIAService(id);
+      setRelatorioIA(relatorio);
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao gerar relatório. Tente novamente.");
+    } finally {
+      setGerandoRelatorio(false);
+    }
+  }
+
   return {
     onVoltar: () => router.back(),
     onSalvar: handleSalvar,
     onImprimirPulseira: imprimirPulseira,
     onImprimirFolha: imprimirFolha,
+    onGerarRelatorio: handleGerarRelatorio,
+    onExibirInformacoes: () => {},
     nomeUsuario,
     nome,
     nomeSocial,
@@ -221,6 +243,8 @@ export function usePatientProfile() {
     dificuldadesSensoriais,
     fatoresClinicos,
     hiperfoco,
+    relatorioIA,
+    gerandoRelatorio,
     setNome,
     setNomeSocial,
     setDataNascimento,

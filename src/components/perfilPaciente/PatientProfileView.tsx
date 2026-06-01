@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, Flex, Text, HStack, VStack } from "@chakra-ui/react";
-import { FiArrowLeft, FiPrinter } from "react-icons/fi";
+import { Box, Flex, Text, HStack, VStack, Spinner } from "@chakra-ui/react";
+import { FiArrowLeft, FiPrinter, FiInfo } from "react-icons/fi";
 import { PatientProfileViewProps } from "@/types/PatientProfile";
 
 const inputStyle: React.CSSProperties = {
@@ -72,6 +72,8 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
     onSalvar,
     onImprimirPulseira,
     onImprimirFolha,
+    onExibirInformacoes,
+    onGerarRelatorio,
     nome,
     nomeSocial,
     dataNascimento,
@@ -95,6 +97,8 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
     dificuldadesSensoriais,
     fatoresClinicos,
     hiperfoco,
+    relatorioIA,
+    gerandoRelatorio,
     setNome,
     setNomeSocial,
     setDataNascimento,
@@ -139,6 +143,30 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
           >
             <FiPrinter size={16} /> Imprimir Folha
           </Box>
+          <Box as="button" bg="blue.600" color="white" borderRadius="lg" py={3} px={6}
+            fontWeight="600" fontSize="sm" cursor="pointer" _hover={{ bg: "blue.700" }}
+            display="flex" alignItems="center" justifyContent="center" gap={2} onClick={onExibirInformacoes}
+          >
+            <FiInfo size={16} /> Exibir Informações
+          </Box>
+          {temTEA && (
+            <Box as="button"
+              bg={gerandoRelatorio ? "gray.400" : "blue.600"} color="white" borderRadius="lg" py={3} px={6}
+              fontWeight="600" fontSize="sm" cursor={gerandoRelatorio ? "not-allowed" : "pointer"}
+              _hover={{ bg: gerandoRelatorio ? "gray.400" : "blue.700" }}
+              onClick={gerandoRelatorio ? undefined : onGerarRelatorio}
+              display="flex" alignItems="center" justifyContent="center" gap={2}
+            >
+              {gerandoRelatorio ? (
+                <>
+                  <Spinner size="sm" />
+                  Gerando relatório...
+                </>
+              ) : (
+                relatorioIA ? "Gerar outro relatório" : "Gerar Relatório"
+              )}
+            </Box>
+          )}
         </Flex>
       )}
 
@@ -300,6 +328,17 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
               </Box>
             </Section>
           </>
+        )}
+
+        {temTEA && relatorioIA && (
+          <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 6 }}>
+            <Text fontWeight="600" fontSize="sm" color="gray.700" mb={4}>Relatório da IA</Text>
+            <Box border="1px solid" borderColor="gray.200" borderRadius="lg" p={4} bg="gray.50">
+              <Text fontSize="sm" color="gray.700" lineHeight="1.6" whiteSpace="pre-wrap">
+                {relatorioIA}
+              </Text>
+            </Box>
+          </Box>
         )}
 
         <Flex justify="center" mb={4}>

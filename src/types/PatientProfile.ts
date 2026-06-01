@@ -3,6 +3,8 @@ export type PatientProfileViewProps = {
   onSalvar: () => void;
   onImprimirPulseira: () => void;
   onImprimirFolha: () => void;
+  onExibirInformacoes: () => void;
+  onGerarRelatorio: () => Promise<void>;
   nome: string;
   nomeSocial: string;
   dataNascimento: string;
@@ -26,6 +28,8 @@ export type PatientProfileViewProps = {
   dificuldadesSensoriais: string[];
   fatoresClinicos: string[];
   hiperfoco: string;
+  relatorioIA: string;
+  gerandoRelatorio: boolean;
   setNome: (v: string) => void;
   setNomeSocial: (v: string) => void;
   setDataNascimento: (v: string) => void;
