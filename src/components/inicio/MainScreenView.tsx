@@ -27,6 +27,7 @@ export default function MainScreenView({
           align="center" justify="flex-start" gap={4}
           _hover={{ bg: "blue.600" }} transition="all 0.2s" boxShadow="sm"
           onClick={onNovaTriagem}
+          cursor="pointer"
         >
           <FiPlus size={32} />
           <Box textAlign="left">

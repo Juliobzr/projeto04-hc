@@ -18,8 +18,8 @@ type PatientData = {
   especialidade: string;
   unidade: string;
   deficiencia: string;
-  relatorioIA?: string;
   tea?: {
+    relatorioIA?: string;
     nivelSuporte: string;
     autonomia: string;
     comunicacao: string;
@@ -247,11 +247,11 @@ export default function PatientViewModal({ isOpen, pacienteId, onClose }: { isOp
       </div>
     </div>
 
-    ${paciente.relatorioIA ? `
+    ${paciente.tea?.relatorioIA ? `
     <div class="section">
       <div class="section-title">8. Relatório da IA</div>
       <div class="field">
-        <div class="field-value" style="white-space: pre-wrap; font-size: 13px; line-height: 1.6;">${paciente.relatorioIA}</div>
+        <div class="field-value" style="white-space: pre-wrap; font-size: 13px; line-height: 1.6;">${paciente.tea?.relatorioIA}</div>
       </div>
     </div>
     ` : ''}
@@ -406,7 +406,7 @@ export default function PatientViewModal({ isOpen, pacienteId, onClose }: { isOp
                     <DisplayField label="Hiperfoco" value={paciente.tea.hiperfoco} />
                   </Section>
 
-                  {paciente.relatorioIA && (
+                  {paciente.tea?.relatorioIA && (
                     <Section number={8} title="Relatório da IA">
                       <Box
                         borderRadius="lg"
@@ -416,7 +416,7 @@ export default function PatientViewModal({ isOpen, pacienteId, onClose }: { isOp
                         bg="gray.50"
                       >
                         <Text fontSize="sm" color="gray.700" lineHeight="1.6" whiteSpace="pre-wrap">
-                          {paciente.relatorioIA}
+                          {paciente.tea?.relatorioIA}
                         </Text>
                       </Box>
                     </Section>

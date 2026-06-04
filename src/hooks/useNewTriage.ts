@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { criarPaciente } from "@/services/patients";
+import { pacienteSchema } from "@/utils/pacienteSchema";
 
 export function useNewTriage() {
   const router = useRouter();
@@ -37,10 +38,16 @@ export function useNewTriage() {
   }, [router]);
 
   async function handleSalvar() {
-    if (!nomeCompleto || !cpf || !dataNascimento) {
-      alert("Preencha pelo menos Nome, CPF e Data de Nascimento.");
-      return;
-    }
+    const result = pacienteSchema.safeParse({
+      nomeCompleto,
+      cpf,
+      dataNascimento,
+    });
+
+    if (!result.success) {
+      alert(result.error.issues[0].message);
+  return;
+}
 
     const novoPaciente = {
       nome: nomeCompleto,
@@ -72,6 +79,16 @@ export function useNewTriage() {
     }
   }
 
+  function handleCpfChange(value: string) {
+  value = value.replace(/\D/g, "");
+
+  value = value.replace(/(\d{3})(\d)/, "$1.$2");
+  value = value.replace(/(\d{3})(\d)/, "$1.$2");
+  value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+  setCpf(value);
+}
+
   return {
     possuiDeficiencia,
     tipoDeficiencia,
@@ -90,7 +107,7 @@ export function useNewTriage() {
     setNomeCompleto,
     setNomeSocial,
     onDataNascimentoChange: handleDataChange,
-    setCpf,
+    setCpf: handleCpfChange,
     setTelefone,
     setNomeResponsavel,
     setProntuario,

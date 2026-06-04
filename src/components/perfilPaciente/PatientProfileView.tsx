@@ -238,7 +238,9 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
           <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 6 }}>
             <Text fontWeight="600" fontSize="sm" color="gray.700" mb={3}>Resumo de Perfil do Paciente IA*:</Text>
             <Box border="1px solid" borderColor="gray.200" borderRadius="lg" p={4} bg="gray.50">
-              <Text fontSize="sm" color="gray.600" lineHeight="1.6">{resumoTexto}</Text>
+              <Text fontSize="sm" color="gray.700" lineHeight="1.6" whiteSpace="pre-wrap">
+                {relatorioIA}
+              </Text>
             </Box>
           </Box>
         )}
@@ -328,17 +330,6 @@ export default function PatientProfileView(props: PatientProfileViewProps) {
               </Box>
             </Section>
           </>
-        )}
-
-        {temTEA && relatorioIA && (
-          <Box bg="white" borderRadius="xl" border="1px solid" borderColor="gray.100" p={{ base: 4, md: 6 }}>
-            <Text fontWeight="600" fontSize="sm" color="gray.700" mb={4}>Relatório da IA</Text>
-            <Box border="1px solid" borderColor="gray.200" borderRadius="lg" p={4} bg="gray.50">
-              <Text fontSize="sm" color="gray.700" lineHeight="1.6" whiteSpace="pre-wrap">
-                {relatorioIA}
-              </Text>
-            </Box>
-          </Box>
         )}
 
         <Flex justify="center" mb={4}>

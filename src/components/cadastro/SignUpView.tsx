@@ -66,11 +66,11 @@ export default function SignUpView({
           </LoadingButton>
           <Link
             as={NextLink}
-            href="/login"
-            color="red"
+            href="/admin"
+            color="gray.400"
             mt={6}
           >
-            Já tem uma conta? Faça login
+            Voltar para a painel de admin
           </Link>
         </VStack>
       </Card>
